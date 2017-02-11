@@ -7,6 +7,7 @@ import DebugSettings from '../Config/DebugSettings'
 
 import { StartupTypes } from '../Redux/StartupRedux'
 import { TemperatureTypes } from '../Redux/TemperatureRedux'
+import { DirectoryTypes } from '../Redux/DirectoryRedux'
 import { LoginTypes } from '../Redux/LoginRedux'
 import { OpenScreenTypes } from '../Redux/OpenScreenRedux'
 
@@ -15,6 +16,7 @@ import { OpenScreenTypes } from '../Redux/OpenScreenRedux'
 import { startup } from './StartupSagas'
 import { login } from './LoginSagas'
 import { getTemperature } from './TemperatureSagas'
+import { getProfiles } from './DirectorySagas'
 import { openScreen } from './OpenScreenSagas'
 
 /* ------------- API ------------- */
@@ -31,6 +33,7 @@ export default function * root () {
     takeLatest(StartupTypes.STARTUP, startup),
     takeLatest(LoginTypes.LOGIN_REQUEST, login),
     takeLatest(OpenScreenTypes.OPEN_SCREEN, openScreen),
+    takeLatest(DirectoryTypes.DIRECTORY_REQUEST, getProfiles),
 
     // some sagas receive extra parameters in addition to an action
     takeLatest(TemperatureTypes.TEMPERATURE_REQUEST, getTemperature, api)

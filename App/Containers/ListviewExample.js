@@ -45,7 +45,6 @@ class ListviewExample extends React.Component {
       {title: '20th Title', description: '20th Description'},
       {title: 'BLACKJACK!', description: 'BLACKJACK! Description'}
     ]
-
     /* ***********************************************************
     * STEP 2
     * Teach datasource how to detect if rows are different
@@ -53,10 +52,8 @@ class ListviewExample extends React.Component {
     *   (r1, r2) => r1.id !== r2.id}
     *************************************************************/
     const rowHasChanged = (r1, r2) => r1 !== r2
-
     // DataSource configured
     const ds = new ListView.DataSource({rowHasChanged})
-
     // Datasource is always in state
     this.state = {
       dataSource: ds.cloneWithRows(dataObjects)
@@ -107,7 +104,8 @@ class ListviewExample extends React.Component {
   render () {
     return (
       <View style={styles.container}>
-        <AlertMessage title='Nothing to See Here, Move Along' show={this.noRowData()} />
+        <AlertMessage title="No Montessorian's Found!"
+          show={this.noRowData()} />
         <ListView
           contentContainerStyle={styles.listContent}
           dataSource={this.state.dataSource}
