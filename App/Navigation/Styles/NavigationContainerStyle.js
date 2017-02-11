@@ -10,12 +10,12 @@ export default {
     backgroundColor: Colors.background
   },
   title: {
-    color: Colors.snow
+    color: Colors.deepBlue
   },
   leftButton: {
-    tintColor: Colors.snow
+    tintColor: Colors.deepBlue
   },
   rightButton: {
-    color: Colors.snow
+    color: Colors.deepBlue
   }
 }

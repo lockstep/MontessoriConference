@@ -21,25 +21,30 @@ export default class PresentationScreen extends React.Component {
 
           <View style={styles.section} >
             <Text style={styles.sectionText} >
-              Default screens for development, debugging, and alpha testing
-              are available below.
+              Welcome to the Montessori Community application!
+              Build relationships before, during and after the conference
+              with the resources below:
             </Text>
           </View>
 
+          <RoundedButton onPress={NavigationActions.montessoriDirectory}>
+            Montessori Directory
+          </RoundedButton>
+
           <RoundedButton onPress={NavigationActions.componentExamples}>
-            Component Examples Screen
+            Component Examples
           </RoundedButton>
 
           <RoundedButton onPress={NavigationActions.usageExamples}>
-            Usage Examples Screen
+            Usage Examples
           </RoundedButton>
 
           <RoundedButton onPress={NavigationActions.apiTesting}>
-            API Testing Screen
+            API Testing
           </RoundedButton>
 
           <RoundedButton onPress={NavigationActions.theme}>
-            Theme Screen
+            Theme
           </RoundedButton>
 
           <RoundedButton onPress={NavigationActions.deviceInfo}>
@@ -47,7 +52,9 @@ export default class PresentationScreen extends React.Component {
           </RoundedButton>
 
           <View style={styles.centered}>
-            <Text style={styles.subtitle}>Made with ❤️ by Infinite Red</Text>
+            <Text style={styles.subtitle}>
+              Made with ❤️ by The Montessori Company
+            </Text>
           </View>
 
         </ScrollView>

@@ -6,7 +6,7 @@ import { Metrics, ApplicationStyles } from '../../Themes/'
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
   logo: {
-    height: Metrics.images.logo,
+    height: Metrics.images.logoHeight,
     width: Metrics.images.logo,
     resizeMode: 'contain'
   },
