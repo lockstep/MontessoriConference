@@ -29,8 +29,9 @@ export const request = (state: Object) => state.merge({ fetching: true })
 
 // we've successfully retrieved profiles
 export const success = (state: Object, action: Object) => {
-  const allProfiles = state.profiles.concat(action.profiles)
-  state.merge({ fetching: false, error: null, profiles: allProfiles })
+  const { profiles } = action;
+  const allProfiles = state.profiles.concat(profiles)
+  return state.merge({ fetching: false, error: null, profiles: allProfiles })
 }
 
 // we've had a problem with the request

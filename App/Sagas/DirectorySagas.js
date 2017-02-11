@@ -9,7 +9,7 @@ export function * getProfiles (action) {
   const response = yield call(api.getProfiles, page)
 
   if (response.ok) {
-    yield put(DirectoryActions.directorySuccess(response.profiles))
+    yield put(DirectoryActions.directorySuccess(response.data.profiles))
   } else {
     yield put(DirectoryActions.directoryFailure())
   }

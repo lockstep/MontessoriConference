@@ -50,8 +50,8 @@ class MontessoriDirectoryScreen extends React.Component {
   renderRow (rowData) {
     return (
       <View style={styles.row}>
-      <Text style={styles.boldLabel}>{rowData.title}</Text>
-      <Text style={styles.label}>{rowData.description}</Text>
+      <Text style={styles.boldLabel}>{rowData.id}</Text>
+      <Text style={styles.label}>{rowData.first_name}</Text>
       </View>
     )
   }
@@ -75,12 +75,8 @@ class MontessoriDirectoryScreen extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const dataObjects = [
-    {id: 1, title: 'First Title', description: 'First Description'},
-    {id: 2, title: 'BLACKJACK!', description: 'BLACKJACK! Description'}
-  ]
   return {
-    profiles: dataObjects
+    profiles: state.directory.profiles
   }
 }
 
