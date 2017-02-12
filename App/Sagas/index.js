@@ -16,7 +16,7 @@ import { OpenScreenTypes } from '../Redux/OpenScreenRedux'
 import { startup } from './StartupSagas'
 import { login } from './LoginSagas'
 import { getTemperature } from './TemperatureSagas'
-import { getProfiles } from './DirectorySagas'
+import { getProfiles, resetProfiles } from './DirectorySagas'
 import { openScreen } from './OpenScreenSagas'
 
 /* ------------- API ------------- */
@@ -33,7 +33,9 @@ export default function * root () {
     takeLatest(StartupTypes.STARTUP, startup),
     takeLatest(LoginTypes.LOGIN_REQUEST, login),
     takeLatest(OpenScreenTypes.OPEN_SCREEN, openScreen),
+
     takeLatest(DirectoryTypes.DIRECTORY_REQUEST, getProfiles),
+    takeLatest(DirectoryTypes.DIRECTORY_RESET, resetProfiles),
 
     // some sagas receive extra parameters in addition to an action
     takeLatest(TemperatureTypes.TEMPERATURE_REQUEST, getTemperature, api)

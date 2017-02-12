@@ -2,11 +2,14 @@
 
 // An All Components Screen is a great way to dev and quick-test components
 import React from 'react'
-import { Platform, View, ListView, Text, Image } from 'react-native'
+import {
+  Platform, View, ListView, Text, Image, RefreshControl
+} from 'react-native'
+import InfiniteScrollView from 'react-native-infinite-scroll-view'
 import { Images } from '../Themes'
 import styles from './Styles/MontessoriDirectoryScreenStyle'
 import { connect } from 'react-redux'
-import DirectoryActions from '../Redux/DirectoryRedux'
+import DirectoryActions, { directoryState } from '../Redux/DirectoryRedux'
 
 class MontessoriDirectoryScreen extends React.Component {
 
@@ -31,8 +34,13 @@ class MontessoriDirectoryScreen extends React.Component {
     }
   }
 
-  componentDidMount () {
-    this.props.loadProfiles();
+  async componentWillMount() {
+    if(this.props.lastPageFetched > 0) return;
+    this._loadMoreProfilesAsync();
+  }
+
+  _loadMoreProfilesAsync = async () => {
+    this.props.loadProfiles(this.props.lastPageFetched + 1)
   }
 
   renderAndroidWarning () {
@@ -50,8 +58,8 @@ class MontessoriDirectoryScreen extends React.Component {
   renderRow (rowData) {
     return (
       <View style={styles.row}>
-      <Text style={styles.boldLabel}>{rowData.id}</Text>
-      <Text style={styles.label}>{rowData.first_name}</Text>
+        <Text style={styles.boldLabel}>{rowData.id}</Text>
+        <Text style={styles.label}>{rowData.first_name}</Text>
       </View>
     )
   }
@@ -60,14 +68,28 @@ class MontessoriDirectoryScreen extends React.Component {
     return this.state.dataSource.getRowCount() === 0
   }
 
+  _renderRefreshControl() {
+    return (
+      <RefreshControl
+        refreshing={ this.props.isFetching }
+        onRefresh={ this.props.reloadProfiles }
+      />
+    );
+  }
+
   render () {
     return (
       <View style={styles.mainContainer}>
         <ListView
           contentContainerStyle={styles.listContent}
+          renderScrollComponent={props => <InfiniteScrollView {...props} />}
           dataSource={this.state.dataSource}
           renderRow={this.renderRow}
+          canLoadMore={this.props.canLoadMore && !this.props.isFetching}
+          onLoadMoreAsync={this._loadMoreProfilesAsync.bind(this)}
+          refreshControl={this._renderRefreshControl()}
           pageSize={15}
+          enableEmptySections={true}
         />
       </View>
     )
@@ -76,13 +98,17 @@ class MontessoriDirectoryScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    profiles: state.directory.profiles
+    profiles: directoryState(state).profiles,
+    isFetching: directoryState(state).fetching,
+    canLoadMore: directoryState(state).canLoadMore,
+    lastPageFetched: directoryState(state).lastPageFetched
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loadProfiles: (page) => dispatch(DirectoryActions.directoryRequest(page))
+    loadProfiles: (page) => dispatch(DirectoryActions.directoryRequest(page)),
+    reloadProfiles: () => dispatch(DirectoryActions.directoryReset())
   }
 }
 

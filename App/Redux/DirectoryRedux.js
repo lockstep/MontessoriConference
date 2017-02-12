@@ -8,7 +8,8 @@ import Immutable from 'seamless-immutable'
 const { Types, Creators } = createActions({
   directoryRequest: ['page'],
   directorySuccess: ['profiles'],
-  directoryFailure: ['error']
+  directoryFailure: ['error'],
+  directoryReset: null
 })
 
 export const DirectoryTypes = Types
@@ -19,19 +20,32 @@ export default Creators
 export const INITIAL_STATE = Immutable({
   profiles: [],
   error: null,
+  lastPageFetched: 0, // Pages start at 1. This indicates no pages fetched.
+  canLoadMore: true,
   fetching: false
 })
 
 /* ------------- Reducers ------------- */
 
 // we're attempting to fetch profiles
-export const request = (state: Object) => state.merge({ fetching: true })
+export const request = (state: Object, action: Object) => {
+  const { page } = action;
+  return state.merge({ fetching: true, lastPageFetched: page });
+}
 
 // we've successfully retrieved profiles
 export const success = (state: Object, action: Object) => {
   const { profiles } = action;
   const allProfiles = state.profiles.concat(profiles)
-  return state.merge({ fetching: false, error: null, profiles: allProfiles })
+  return state.merge({
+    fetching: false, error: null, profiles: allProfiles,
+    canLoadMore: profiles.length > 0
+  })
+}
+
+// we're resetting the data with a RefreshControl event
+export const reset = ( state: Object ) => {
+  return state.merge({ profiles: [], lastPageFetched: 0, canLoadMore: true })
 }
 
 // we've had a problem with the request
@@ -43,10 +57,10 @@ export const failure = (state: Object, { error }: Object) =>
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.DIRECTORY_REQUEST]: request,
   [Types.DIRECTORY_SUCCESS]: success,
-  [Types.DIRECTORY_FAILURE]: failure
+  [Types.DIRECTORY_FAILURE]: failure,
+  [Types.DIRECTORY_RESET]: reset
 })
 
 /* ------------- Selectors ------------- */
 
-// Is the current user logged in?
-export const isLoggedIn = (loginState: Object) => loginState.username !== null
+export const directoryState = (state: Object) => state.directory

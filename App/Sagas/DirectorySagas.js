@@ -14,3 +14,7 @@ export function * getProfiles (action) {
     yield put(DirectoryActions.directoryFailure())
   }
 }
+
+export function * resetProfiles (action) {
+  yield put(DirectoryActions.directoryRequest(1))
+}
