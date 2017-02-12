@@ -1,8 +1,11 @@
 // a library to wrap and simplify api calls
 import apisauce from 'apisauce'
 
+const BASE_ULR = __DEV__ ?
+  'http://0.0.0.0:3000' : 'https://www.themontessoricompany.com'
+
 // our "constructor"
-const create = (baseURL = 'http://0.0.0.0:3000') => {
+const create = (baseURL = BASE_ULR) => {
   // ------
   // STEP 1
   // ------
