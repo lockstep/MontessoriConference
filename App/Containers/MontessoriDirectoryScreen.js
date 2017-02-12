@@ -58,8 +58,19 @@ class MontessoriDirectoryScreen extends React.Component {
   renderRow (rowData) {
     return (
       <View style={styles.row}>
-        <Text style={styles.boldLabel}>{rowData.id}</Text>
-        <Text style={styles.label}>{rowData.first_name}</Text>
+        <View style={styles.imageWrapper}>
+          <Image source={{ uri: rowData.avatar_url_small }}
+            style={styles.image} />
+        </View>
+        <View style={styles.info}>
+          <Text style={styles.boldLabel}>{rowData.full_name}</Text>
+          <Text style={styles.label} numberOfLines={1}>
+            {rowData.position_with_organization}
+          </Text>
+          <Text style={styles.label} numberOfLines={1}>
+            {rowData.full_address_country}
+          </Text>
+        </View>
       </View>
     )
   }

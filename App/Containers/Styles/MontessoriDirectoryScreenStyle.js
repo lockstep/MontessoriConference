@@ -13,21 +13,31 @@ export default StyleSheet.create({
   },
   row: {
     flex: 1,
-    backgroundColor: Colors.fire,
-    marginVertical: Metrics.smallMargin,
-    justifyContent: 'center'
+    flexDirection: 'row',
+    marginVertical: Metrics.mediumMargin,
+  },
+  imageWrapper: {
+    flex: 1,
+    alignItems: 'center'
+  },
+  info: {
+    flex: 3
+  },
+  image: {
+    width: Metrics.images.large,
+    height: Metrics.images.large,
+    overlayColor: Colors.background,
+    borderRadius: Metrics.images.large / 2
   },
   boldLabel: {
     fontWeight: 'bold',
-    alignSelf: 'center',
-    color: Colors.snow,
-    textAlign: 'center',
-    marginVertical: Metrics.smallMargin
+    fontSize: Metrics.font.medium,
+    color: Colors.coal,
+    marginBottom: Metrics.tinyMargin
   },
   label: {
-    textAlign: 'center',
-    color: Colors.snow,
-    marginBottom: Metrics.smallMargin
+    fontSize: Metrics.font.default,
+    color: Colors.coal,
   },
   listContent: {
     marginTop: Metrics.baseMargin
