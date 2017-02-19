@@ -4,7 +4,7 @@
 import React from 'react'
 import {
   Platform, View, ListView, Text, Image, RefreshControl,
-  TouchableOpacity
+  TouchableOpacity, TextInput,
 } from 'react-native'
 import InfiniteScrollView from 'react-native-infinite-scroll-view'
 import { Images } from '../Themes'
@@ -12,6 +12,9 @@ import styles from './Styles/MontessoriDirectoryScreenStyle'
 import { connect } from 'react-redux'
 import DirectoryActions, { directoryState } from '../Redux/DirectoryRedux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
+import I18n from 'react-native-i18n'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import { Metrics } from '../Themes/'
 
 class MontessoriDirectoryScreen extends React.Component {
 
@@ -24,7 +27,8 @@ class MontessoriDirectoryScreen extends React.Component {
     const rowHasChanged = (r1, r2) => r1.id !== r2.id
     const ds = new ListView.DataSource({rowHasChanged})
     this.state = {
-      dataSource: ds.cloneWithRows(props.profiles)
+      dataSource: ds.cloneWithRows(props.profiles),
+      searchParams: {}
     }
   }
 
@@ -42,7 +46,9 @@ class MontessoriDirectoryScreen extends React.Component {
   }
 
   _loadMoreProfilesAsync = async () => {
-    this.props.loadProfiles(this.props.lastPageFetched + 1)
+    this.props.loadProfiles(
+      this.props.lastPageFetched + 1, this.state.searchParams
+    )
   }
 
   renderAndroidWarning () {
@@ -86,15 +92,50 @@ class MontessoriDirectoryScreen extends React.Component {
     )
   }
 
+  renderHeader () {
+
+    const onSubmitEditing = () => {
+      this.props.reloadProfiles(this.state.searchParams)
+    }
+
+    const onSearchQueryInput = (textInput) => {
+      const newParams = Object.assign({}, this.state.searchParams, {
+        query: textInput
+      })
+      this.setState({ searchParams: newParams })
+    }
+
+    return (
+      <View style={styles.formWrapper}>
+        <Icon name='search' size={Metrics.icons.small} style={styles.searchIcon} />
+        <TextInput
+          placeholder={I18n.t('searchDirectory')}
+          underlineColorAndroid='transparent'
+          style={styles.searchInput}
+          value={this.props.searchTerm}
+          autoCapitalize='none'
+          onChangeText={ onSearchQueryInput }
+          onSubmitEditing={onSubmitEditing}
+          returnKeyType={'search'}
+          autoCorrect={false}
+        />
+      </View>
+    )
+  }
+
   noRowData () {
     return this.state.dataSource.getRowCount() === 0
   }
 
   _renderRefreshControl() {
+    const reloadWithSearchParams = () => {
+      this.props.reloadProfiles(this.state.searchParams)
+    }
+
     return (
       <RefreshControl
         refreshing={ this.props.isFetching }
-        onRefresh={ this.props.reloadProfiles }
+        onRefresh={ reloadWithSearchParams.bind(this) }
       />
     );
   }
@@ -103,6 +144,7 @@ class MontessoriDirectoryScreen extends React.Component {
     return (
       <View style={styles.mainContainer}>
         <ListView
+          renderSectionHeader={this.renderHeader.bind(this)}
           contentContainerStyle={styles.listContent}
           renderScrollComponent={props => <InfiniteScrollView {...props} />}
           dataSource={this.state.dataSource}
@@ -129,8 +171,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loadProfiles: (page) => dispatch(DirectoryActions.directoryRequest(page)),
-    reloadProfiles: () => dispatch(DirectoryActions.directoryReset())
+    loadProfiles: (page, params) => {
+      dispatch(DirectoryActions.directoryRequest(page, params))
+    },
+    reloadProfiles: (params) => {
+      dispatch(DirectoryActions.directoryReset(params))
+    },
   }
 }
 

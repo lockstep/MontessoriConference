@@ -4,9 +4,9 @@ import DirectoryActions from '../Redux/DirectoryRedux'
 
 export function * getProfiles (action) {
   const api = TmcApi.create()
-  const { page } = action
+  const { page, searchParams } = action
   // make the call to the api
-  const response = yield call(api.getProfiles, page)
+  const response = yield call(api.getProfiles, page, searchParams)
 
   if (response.ok) {
     yield put(DirectoryActions.directorySuccess(response.data.profiles))
@@ -16,5 +16,5 @@ export function * getProfiles (action) {
 }
 
 export function * resetProfiles (action) {
-  yield put(DirectoryActions.directoryRequest(1))
+  yield put(DirectoryActions.directoryRequest(1, action.searchParams))
 }

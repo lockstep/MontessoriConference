@@ -43,7 +43,9 @@ const create = (baseURL = BASE_ULR) => {
   // Since we can't hide from that, we embrace it by getting out of the
   // way at this level.
   //
-  const getProfiles = (page) => api.get('/directory', { page })
+  const getProfiles = (page, searchParams) => {
+    return api.get('/directory', Object.assign({ page }, searchParams))
+  }
 
   // ------
   // STEP 3

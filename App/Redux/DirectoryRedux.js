@@ -6,10 +6,10 @@ import Immutable from 'seamless-immutable'
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  directoryRequest: ['page'],
+  directoryRequest: ['page', 'searchParams'],
   directorySuccess: ['profiles'],
   directoryFailure: ['error'],
-  directoryReset: null
+  directoryReset: ['searchParams']
 })
 
 export const DirectoryTypes = Types
@@ -45,7 +45,7 @@ export const success = (state: Object, action: Object) => {
 
 // we're resetting the data with a RefreshControl event
 export const reset = ( state: Object ) => {
-  return state.merge({ profiles: [], lastPageFetched: 0, canLoadMore: true })
+  return state.merge({ profiles: [], lastPageFetched: 0, canLoadMore: false })
 }
 
 // we've had a problem with the request
