@@ -29,4 +29,5 @@ export default StyleSheet.create({
     color: Colors.coal,
     marginBottom: Metrics.smallMargin
   },
+  sectionTitle: ApplicationStyles.sectionTitle,
 })

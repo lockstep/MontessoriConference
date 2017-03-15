@@ -113,7 +113,9 @@ class LoginScreen extends React.Component {
     const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
     return (
       <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: this.state.visibleHeight}]} keyboardShouldPersistTaps>
-        <Image source={Images.logo} style={[Styles.topLogo, this.state.topLogo]} />
+        <Text style={Styles.sectionTitle}>
+          Welcome! Sign in below:
+        </Text>
         <View style={Styles.form}>
           <View style={Styles.row}>
             <Text style={Styles.rowLabel}>{I18n.t('username')}</Text>

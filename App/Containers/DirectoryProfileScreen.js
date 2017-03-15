@@ -9,6 +9,9 @@ import styles from './Styles/DirectoryProfileScreenStyle'
 import { connect } from 'react-redux'
 import ProfileActions, { profileState } from '../Redux/ProfileRedux'
 import { directoryState } from '../Redux/DirectoryRedux'
+import { isLoggedIn } from '../Redux/LoginRedux'
+import { Actions as NavigationActions } from 'react-native-router-flux'
+import RoundedButton from '../Components/RoundedButton'
 
 class DirectoryProfileScreen extends React.Component {
 
@@ -26,7 +29,7 @@ class DirectoryProfileScreen extends React.Component {
 
   render () {
     const {
-      name, position, location, bio, profileImageUrl,
+      name, position, location, bio, profileImageUrl, loggedIn,
     } = this.props
 
     return (
@@ -43,6 +46,17 @@ class DirectoryProfileScreen extends React.Component {
               { location }
             </Text>
           </View>
+          <Text style={styles.sectionTitle}>
+            Private Messages
+          </Text>
+          { !loggedIn &&
+            <View style={styles.section}>
+              <RoundedButton onPress={NavigationActions.login}>
+                Log In To Send Messages
+              </RoundedButton>
+            </View>
+          }
+
         </ScrollView>
       </View>
     )
@@ -57,6 +71,7 @@ const mapStateToProps = (state) => {
     location: profileState(state).location,
     bio: profileState(state).bio,
     profileImageUrl: profileState(state).avatar_url_medium,
+    loggedIn: isLoggedIn(state.login),
   }
 }
 

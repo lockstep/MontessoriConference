@@ -2,6 +2,7 @@
 
 import { StyleSheet } from 'react-native'
 import { Colors, Metrics } from '../../Themes'
+import { ApplicationStyles } from '../../Themes/'
 
 export default StyleSheet.create({
   container: {
@@ -14,8 +15,8 @@ export default StyleSheet.create({
     borderRadius: 4
   },
   row: {
-    paddingVertical: Metrics.doubleBaseMargin,
-    paddingHorizontal: Metrics.doubleBaseMargin
+    paddingVertical: Metrics.baseMargin,
+    paddingHorizontal: Metrics.baseMargin
   },
   rowLabel: {
     color: Colors.charcoal
@@ -50,5 +51,6 @@ export default StyleSheet.create({
   topLogo: {
     alignSelf: 'center',
     resizeMode: 'contain'
-  }
+  },
+  sectionTitle: ApplicationStyles.centeredSectionTitle,
 })
