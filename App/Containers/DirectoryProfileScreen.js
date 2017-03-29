@@ -10,8 +10,13 @@ import { connect } from 'react-redux'
 import ProfileActions, { profileState } from '../Redux/ProfileRedux'
 import { directoryState } from '../Redux/DirectoryRedux'
 import { isLoggedIn } from '../Redux/LoginRedux'
+import PrivateMessageActions, { privateMessageState } from '../Redux/PrivateMessageRedux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 import RoundedButton from '../Components/RoundedButton'
+import Input from '../Components/Input';
+import Button from '../Components/Button';
+import PrivateMessages from '../Components/PrivateMessages';
 
 class DirectoryProfileScreen extends React.Component {
 
@@ -25,12 +30,26 @@ class DirectoryProfileScreen extends React.Component {
 
   _getProfileDataAsync = async () => {
     this.props.loadProfile(this.props.profileId, this.props.profiles)
+    this.props.getMessages(this.props.profileId)
+  }
+
+  handleChangeText(text) {
+    this.setState({message: text});
+  }
+
+  handleSendMessage() {
+    console.log('should send message: ' + this.state.message);
+    // Calling a service to send message
+    this.props.sendMessage(this.props.profileId, this.state.message);
+
+    this._input.clearText();
+    this.setState({message: ''});
   }
 
   render () {
     const {
-      name, position, location, bio, profileImageUrl, loggedIn,
-    } = this.props
+      name, position, location, bio, profileImageUrl, loggedIn, messages
+    } = this.props;
 
     return (
       <View style={styles.mainContainer}>
@@ -49,6 +68,7 @@ class DirectoryProfileScreen extends React.Component {
           <Text style={styles.sectionTitle}>
             Private Messages
           </Text>
+          <PrivateMessages messages={messages} />
           { !loggedIn &&
             <View style={styles.section}>
               <RoundedButton onPress={NavigationActions.login}>
@@ -58,6 +78,21 @@ class DirectoryProfileScreen extends React.Component {
           }
 
         </ScrollView>
+        { loggedIn &&
+          <View>
+            <View style={styles.messageInput}>
+              <Input
+                ref={input => this._input = input}
+                placeholder='Type message here...'
+                onChangeText={this.handleChangeText.bind(this)}
+              />
+              <Button
+                iconName='paper-plane'
+                onPress={this.handleSendMessage.bind(this)}/>
+            </View>
+            <KeyboardSpacer />
+          </View>
+        }
       </View>
     )
   }
@@ -72,12 +107,15 @@ const mapStateToProps = (state) => {
     bio: profileState(state).bio,
     profileImageUrl: profileState(state).avatar_url_medium,
     loggedIn: isLoggedIn(state.login),
+    messages: privateMessageState(state).messages
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loadProfile: (profileId, profiles) => dispatch(ProfileActions.profileRequest(profileId, profiles))
+    loadProfile: (profileId, profiles) => dispatch(ProfileActions.profileRequest(profileId, profiles)),
+    sendMessage: (profileId, message) => dispatch(PrivateMessageActions.sendMessage(profileId, message)),
+    getMessages: (profileId) => dispatch(PrivateMessageActions.getMessages(profileId))
   }
 }
 

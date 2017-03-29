@@ -30,4 +30,7 @@ export default StyleSheet.create({
     marginBottom: Metrics.smallMargin
   },
   sectionTitle: ApplicationStyles.sectionTitle,
+  messageInput: {
+    flexDirection: 'row'
+  }
 })

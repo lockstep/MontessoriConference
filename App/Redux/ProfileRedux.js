@@ -9,6 +9,7 @@ import find from 'lodash/find'
 
 const { Types, Creators } = createActions({
   profileRequest: ['profileId', 'profiles'],
+  sendMessage: ['message']
 })
 
 export const ProfileTypes = Types
@@ -36,7 +37,7 @@ export const request = (state: Object, action: Object) => {
 /* ------------- Hookup Reducers To Types ------------- */
 
   export const reducer = createReducer(INITIAL_STATE, {
-    [Types.PROFILE_REQUEST]: request,
+    [Types.PROFILE_REQUEST]: request
   })
 
 /* ------------- Selectors ------------- */

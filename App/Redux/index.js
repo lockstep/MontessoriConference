@@ -12,6 +12,7 @@ export default () => {
     search: require('./SearchRedux').reducer,
     directory: require('./DirectoryRedux').reducer,
     profile: require('./ProfileRedux').reducer,
+    privateMessage: require('./PrivateMessageRedux').reducer
   })
 
   return configureStore(rootReducer, rootSaga)
