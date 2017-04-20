@@ -28,6 +28,12 @@ class DirectoryProfileScreen extends React.Component {
     this._getProfileDataAsync();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.loggedIn && nextProps.loggedIn) {
+      this.props.getMessages(this.props.profileId);
+    }
+  }
+
   _getProfileDataAsync = async () => {
     this.props.loadProfile(this.props.profileId, this.props.profiles)
     this.props.getMessages(this.props.profileId)

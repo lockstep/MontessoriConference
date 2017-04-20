@@ -26,20 +26,21 @@ export const INITIAL_STATE = Immutable({
 /* ------------- Reducers ------------- */
 
 // we're attempting to send message
-export const sendMessage = (state: Object) => state.merge({ fetching: true })
-export const getMessagesSuccess = (state: Object, {messages}: Object) => {
-  console.log('get message success');
+export const createMessage = (state: Object) => state.merge({ fetching: true });
+export const requestMessages = (state: Object) => state.merge({ messages: [] });
+export const requestMessagesSuccess = (state: Object, {messages}: Object) => {
   return state.merge({
     fetching: false,
     messages
   })
-}
+};
 
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
-  [Types.SEND_MESSAGE]: sendMessage,
-  [Types.GET_MESSAGES_SUCCESS]: getMessagesSuccess
+  [Types.SEND_MESSAGE]: createMessage,
+  [Types.GET_MESSAGES]: requestMessages,
+  [Types.GET_MESSAGES_SUCCESS]: requestMessagesSuccess
 })
 
 /* ------------- Selectors ------------- */
