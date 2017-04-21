@@ -43,9 +43,22 @@ const create = (baseURL = BASE_ULR) => {
   // Since we can't hide from that, we embrace it by getting out of the
   // way at this level.
   //
+  const login = (email, password) => api.post('/api/v1/users/sign_in', {email, password})
   const getProfiles = (page, searchParams) => {
     return api.get('/directory', Object.assign({ page }, searchParams))
   }
+  const saveCredentials = (uid, client, accessToken, expiry) => {
+    console.log('saveCredentials', uid, client, accessToken)
+    api.addRequestTransform(request => {
+      request.headers['access-token'] = accessToken;
+      request.headers['token-type'] = 'Bearer';
+      request.headers['uid'] = uid;
+      request.headers['client'] = client;
+      request.headers['expiry'] = expiry;
+    })
+  }
+  const sendMessage = (profileId, message) => api.post(`/api/v1/users/${profileId}/send_message`, {feed_item: {message}})
+  const getMessages = (profileId) => api.get(`/api/v1/users/${profileId}/private_messages`)
 
   // ------
   // STEP 3
@@ -61,7 +74,11 @@ const create = (baseURL = BASE_ULR) => {
   //
   return {
     // a list of the API functions from step 2
-    getProfiles
+    login,
+    saveCredentials,
+    getProfiles,
+    sendMessage,
+    getMessages
   }
 }
 
