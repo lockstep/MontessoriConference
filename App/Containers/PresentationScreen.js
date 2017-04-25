@@ -31,6 +31,10 @@ export default class PresentationScreen extends React.Component {
             Montessori Directory
           </RoundedButton>
 
+          <RoundedButton onPress={NavigationActions.breakoutSessionList}>
+            Breakout Sessions
+          </RoundedButton>
+
           <RoundedButton onPress={NavigationActions.aboutUs}>
             About Us
           </RoundedButton>

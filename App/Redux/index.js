@@ -12,7 +12,10 @@ export default () => {
     search: require('./SearchRedux').reducer,
     directory: require('./DirectoryRedux').reducer,
     profile: require('./ProfileRedux').reducer,
-    privateMessage: require('./PrivateMessageRedux').reducer
+    privateMessage: require('./PrivateMessageRedux').reducer,
+    breakoutSessionList: require('./BreakoutSessionListRedux').reducer,
+    breakoutSession: require('./BreakoutSessionRedux').reducer,
+    commentList: require('./CommentListRedux').reducer
   })
 
   return configureStore(rootReducer, rootSaga)

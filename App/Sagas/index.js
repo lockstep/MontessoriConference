@@ -11,6 +11,8 @@ import { DirectoryTypes } from '../Redux/DirectoryRedux'
 import { LoginTypes } from '../Redux/LoginRedux'
 import { OpenScreenTypes } from '../Redux/OpenScreenRedux'
 import { PrivateMessageTypes } from '../Redux/PrivateMessageRedux'
+import { BreakoutSessionListTypes } from '../Redux/BreakoutSessionListRedux'
+import { CommentListTypes } from '../Redux/CommentListRedux'
 
 /* ------------- Sagas ------------- */
 
@@ -20,6 +22,8 @@ import { getTemperature } from './TemperatureSagas'
 import { getProfiles, resetProfiles } from './DirectorySagas'
 import { openScreen } from './OpenScreenSagas'
 import { sendMessage, getMessages } from './PrivateMessageSagas'
+import { getBreakoutSessionList } from './BreakoutSessionListSagas'
+import { sendComment, getComments } from './CommentListSagas'
 
 /* ------------- API ------------- */
 
@@ -41,7 +45,12 @@ export default function * root () {
     takeLatest(DirectoryTypes.DIRECTORY_RESET, resetProfiles),
 
     takeLatest(PrivateMessageTypes.SEND_MESSAGE, sendMessage, api),
-    takeLatest(PrivateMessageTypes.GET_MESSAGES, getMessages, api)
+    takeLatest(PrivateMessageTypes.GET_MESSAGES, getMessages, api),
+
+    takeLatest(BreakoutSessionListTypes.BREAKOUT_SESSION_LIST_REQUEST, getBreakoutSessionList, api),
+
+    takeLatest(CommentListTypes.SEND_COMMENT, sendComment, api),
+    takeLatest(CommentListTypes.GET_COMMENTS, getComments, api)
 
     // some sagas receive extra parameters in addition to an action
     // takeLatest(TemperatureTypes.TEMPERATURE_REQUEST, getTemperature, api)

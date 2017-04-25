@@ -59,6 +59,9 @@ const create = (baseURL = BASE_ULR) => {
   }
   const sendMessage = (profileId, message) => api.post(`/api/v1/users/${profileId}/send_message`, {feed_item: {message}})
   const getMessages = (profileId) => api.get(`/api/v1/users/${profileId}/private_messages`)
+  const getBreakoutSessionList = () => api.get('/api/v1/breakout_sessions')
+  const sendComment = (breakoutSessionId, message) => api.post(`/api/v1/breakout_sessions/${breakoutSessionId}/comments`, {feed_item: {message}})
+  const getComments = (breakoutSessionId) => api.get(`/api/v1/breakout_sessions/${breakoutSessionId}/comments`)
 
   // ------
   // STEP 3
@@ -78,7 +81,10 @@ const create = (baseURL = BASE_ULR) => {
     saveCredentials,
     getProfiles,
     sendMessage,
-    getMessages
+    getMessages,
+    getBreakoutSessionList,
+    sendComment,
+    getComments
   }
 }
 

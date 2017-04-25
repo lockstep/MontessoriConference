@@ -8,7 +8,9 @@ export function * getProfiles (action) {
   // make the call to the api
   const response = yield call(api.getProfiles, page, searchParams)
 
+  console.log('calling get profiles')
   if (response.ok) {
+    console.log('get directory success')
     yield put(DirectoryActions.directorySuccess(response.data.profiles))
   } else {
     yield put(DirectoryActions.directoryFailure())

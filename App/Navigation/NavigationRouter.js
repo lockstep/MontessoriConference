@@ -12,6 +12,8 @@ import PresentationScreen from '../Containers/PresentationScreen'
 import AllComponentsScreen from '../Containers/AllComponentsScreen'
 import MontessoriDirectoryScreen from '../Containers/MontessoriDirectoryScreen';
 import DirectoryProfileScreen from '../Containers/DirectoryProfileScreen';
+import BreakoutSessionListScreen from '../Containers/BreakoutSessionListScreen';
+import BreakoutSessionScreen from '../Containers/BreakoutSessionScreen';
 import UsageExamplesScreen from '../Containers/UsageExamplesScreen'
 import LoginScreen from '../Containers/LoginScreen'
 import ListviewExample from '../Containers/ListviewExample'
@@ -37,6 +39,8 @@ class NavigationRouter extends Component {
             <Scene initial key='presentationScreen' component={PresentationScreen} title='Home' renderLeftButton={NavItems.hamburgerButton} />
             <Scene key='montessoriDirectory'
               component={MontessoriDirectoryScreen} title='Directory' />
+            <Scene key='breakoutSessionList' component={BreakoutSessionListScreen} title='Breakout Sessions' />
+            <Scene key='breakoutSession' component={BreakoutSessionScreen} />
             <Scene key='directoryProfile' component={DirectoryProfileScreen} />
             <Scene key='componentExamples' component={AllComponentsScreen} title='Components' />
             <Scene key='usageExamples' component={UsageExamplesScreen} title='Usage' rightTitle='Example' onRight={() => window.alert('Example Pressed')} />
