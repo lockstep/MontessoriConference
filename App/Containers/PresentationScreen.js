@@ -31,24 +31,8 @@ export default class PresentationScreen extends React.Component {
             Montessori Directory
           </RoundedButton>
 
-          <RoundedButton onPress={NavigationActions.componentExamples}>
-            Component Examples
-          </RoundedButton>
-
-          <RoundedButton onPress={NavigationActions.usageExamples}>
-            Usage Examples
-          </RoundedButton>
-
-          <RoundedButton onPress={NavigationActions.apiTesting}>
-            API Testing
-          </RoundedButton>
-
-          <RoundedButton onPress={NavigationActions.theme}>
-            Theme
-          </RoundedButton>
-
-          <RoundedButton onPress={NavigationActions.deviceInfo}>
-            Device Info Screen
+          <RoundedButton onPress={NavigationActions.aboutUs}>
+            About Us
           </RoundedButton>
 
           <View style={styles.centered}>
