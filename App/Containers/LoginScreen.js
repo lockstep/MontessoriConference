@@ -1,4 +1,6 @@
-import React, { PropTypes } from 'react'
+// @flow
+
+import React from 'react'
 import {
   View,
   ScrollView,
@@ -14,23 +16,36 @@ import Styles from './Styles/LoginScreenStyles'
 import {Images, Metrics} from '../Themes'
 import LoginActions from '../Redux/LoginRedux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
+import I18n from 'react-native-i18n'
+
+type LoginScreenProps = {
+  dispatch: () => any,
+  fetching: boolean,
+  attemptLogin: () => void
+}
 
 class LoginScreen extends React.Component {
-  static propTypes = {
-    dispatch: PropTypes.func,
-    fetching: PropTypes.bool,
-    attemptLogin: PropTypes.func
+
+  props: LoginScreenProps
+
+  state: {
+    username: string,
+    password: string,
+    visibleHeight: number,
+    topLogo: {
+      width: number
+    }
   }
 
-  isAttempting = false
-  keyboardDidShowListener = {}
-  keyboardDidHideListener = {}
+  isAttempting: boolean
+  keyboardDidShowListener: Object
+  keyboardDidHideListener: Object
 
-  constructor (props) {
+  constructor (props: LoginScreenProps) {
     super(props)
     this.state = {
-      username: 'reactnative@infinite.red',
-      password: 'password',
+      username: '',
+      password: '',
       visibleHeight: Metrics.screenHeight,
       topLogo: { width: Metrics.screenWidth }
     }
@@ -97,11 +112,13 @@ class LoginScreen extends React.Component {
     const editable = !fetching
     const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
     return (
-      <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: this.state.visibleHeight}]} keyboardShouldPersistTaps='always'>
-        <Image source={Images.logo} style={[Styles.topLogo, this.state.topLogo]} />
+      <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: this.state.visibleHeight}]} keyboardShouldPersistTaps>
+        <Text style={Styles.sectionTitle}>
+          Welcome! Sign in below:
+        </Text>
         <View style={Styles.form}>
           <View style={Styles.row}>
-            <Text style={Styles.rowLabel}>Username</Text>
+            <Text style={Styles.rowLabel}>{I18n.t('username')}</Text>
             <TextInput
               ref='username'
               style={textInputStyle}
@@ -114,11 +131,11 @@ class LoginScreen extends React.Component {
               onChangeText={this.handleChangeUsername}
               underlineColorAndroid='transparent'
               onSubmitEditing={() => this.refs.password.focus()}
-              placeholder='Username' />
+              placeholder={I18n.t('username')} />
           </View>
 
           <View style={Styles.row}>
-            <Text style={Styles.rowLabel}>Password</Text>
+            <Text style={Styles.rowLabel}>{I18n.t('password')}</Text>
             <TextInput
               ref='password'
               style={textInputStyle}
@@ -132,18 +149,18 @@ class LoginScreen extends React.Component {
               onChangeText={this.handleChangePassword}
               underlineColorAndroid='transparent'
               onSubmitEditing={this.handlePressLogin}
-              placeholder='Password' />
+              placeholder={I18n.t('password')} />
           </View>
 
           <View style={[Styles.loginRow]}>
             <TouchableOpacity style={Styles.loginButtonWrapper} onPress={this.handlePressLogin}>
               <View style={Styles.loginButton}>
-                <Text style={Styles.loginText}>Sign In</Text>
+                <Text style={Styles.loginText}>{I18n.t('signIn')}</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity style={Styles.loginButtonWrapper} onPress={NavigationActions.pop}>
               <View style={Styles.loginButton}>
-                <Text style={Styles.loginText}>Cancel</Text>
+                <Text style={Styles.loginText}>{I18n.t('cancel')}</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -152,6 +169,7 @@ class LoginScreen extends React.Component {
       </ScrollView>
     )
   }
+
 }
 
 const mapStateToProps = (state) => {

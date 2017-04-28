@@ -1,3 +1,5 @@
+// @flow
+
 import Fonts from './Fonts'
 import Metrics from './Metrics'
 import Colors from './Colors'
@@ -9,6 +11,7 @@ const ApplicationStyles = {
   screen: {
     mainContainer: {
       flex: 1,
+      marginTop: Metrics.navBarHeight,
       backgroundColor: Colors.transparent
     },
     backgroundImage: {
@@ -21,37 +24,27 @@ const ApplicationStyles = {
     container: {
       flex: 1,
       paddingTop: Metrics.baseMargin,
-      backgroundColor: Colors.transparent
     },
     section: {
-      margin: Metrics.section,
-      padding: Metrics.baseMargin
+      margin: Metrics.baseMargin,
+      padding: Metrics.baseMargin,
     },
     sectionText: {
-      ...Fonts.style.normal,
-      paddingVertical: Metrics.doubleBaseMargin,
       color: Colors.snow,
       marginVertical: Metrics.smallMargin,
-      textAlign: 'center'
+      textAlign: 'center',
+      fontWeight: 'bold'
     },
     subtitle: {
       color: Colors.snow,
       padding: Metrics.smallMargin,
       marginBottom: Metrics.smallMargin,
       marginHorizontal: Metrics.smallMargin
-    },
-    titleText: {
-      ...Fonts.style.h2,
-      fontSize: 14,
-      color: Colors.text
     }
   },
   darkLabelContainer: {
-    padding: Metrics.smallMargin,
-    paddingBottom: Metrics.doubleBaseMargin,
-    borderBottomColor: Colors.border,
-    borderBottomWidth: 1,
-    marginBottom: Metrics.baseMargin
+    backgroundColor: Colors.cloud,
+    padding: Metrics.smallMargin
   },
   darkLabel: {
     fontFamily: Fonts.type.bold,
@@ -65,15 +58,24 @@ const ApplicationStyles = {
   },
   sectionTitle: {
     ...Fonts.style.h4,
-    color: Colors.coal,
-    backgroundColor: Colors.ricePaper,
+    color: Colors.seaBlue,
     padding: Metrics.smallMargin,
-    marginTop: Metrics.smallMargin,
+    marginTop: Metrics.baseMargin,
     marginHorizontal: Metrics.baseMargin,
-    borderWidth: 1,
-    borderColor: Colors.ember,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.seaBlue,
     alignItems: 'center',
-    textAlign: 'center'
+  },
+  centeredSectionTitle: {
+    ...Fonts.style.h4,
+    color: Colors.seaBlue,
+    padding: Metrics.smallMargin,
+    marginTop: Metrics.baseMargin,
+    marginHorizontal: Metrics.baseMargin,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.seaBlue,
+    textAlign: 'center',
+    alignItems: 'center',
   }
 }
 

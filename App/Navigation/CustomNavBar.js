@@ -1,13 +1,14 @@
 import React, { PropTypes } from 'react'
 import { View, Image, LayoutAnimation } from 'react-native'
 import NavItems from './NavItems'
-import styles from './Styles/CustomNavBarStyles'
+import styles from './Styles/CustomNavBarStyle'
 import SearchBar from '../Components/SearchBar'
 import { connect } from 'react-redux'
 import { Metrics, Images } from '../Themes'
 import SearchActions from '../Redux/SearchRedux'
 
 class CustomNavBar extends React.Component {
+
   constructor (props) {
     super(props)
     this.state = {

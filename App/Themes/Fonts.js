@@ -1,6 +1,8 @@
+// @flow
+
 const type = {
-  base: 'Avenir-Book',
-  bold: 'Avenir-Black',
+  base: 'HelveticaNeue',
+  bold: 'HelveticaNeue-Bold',
   emphasis: 'HelveticaNeue-Italic'
 }
 
@@ -11,7 +13,7 @@ const size = {
   h4: 26,
   h5: 20,
   h6: 19,
-  input: 18,
+  input: 20,
   regular: 17,
   medium: 14,
   small: 12,
@@ -58,3 +60,4 @@ export default {
   size,
   style
 }
+
