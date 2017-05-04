@@ -40,6 +40,13 @@ class BreakoutSessionScreen extends React.Component {
     this.props.getComments(this.props.breakoutSessionId)
   }
 
+  handleTakeSnapshot = () => {
+    NavigationActions.camera({
+      breakoutSessionId: this.props.breakoutSessionId,
+      name: this.props.name
+    });
+  }
+
   handleChangeText(text) {
     this.setState({comment: text});
   }
@@ -55,59 +62,29 @@ class BreakoutSessionScreen extends React.Component {
 
   render () {
     const {
-      name, description, start_time, end_time, organizers
+      name, description, day, start_time, end_time, location_name, organizers
     } = this.props.breakoutSession;
 
     const { loggedIn, comments } = this.props;
 
     return (
-      // <View style={styles.mainContainer}>
-      //   <ScrollView style={ styles.container }>
-      //     <View style={styles.topIntroSection}>
-      //       <Image source={{ uri: profileImageUrl }}
-      //       style={styles.image} />
-      //       <Text style={styles.boldLabel}>{name}</Text>
-      //       <Text style={styles.label}>
-      //         { position }
-      //       </Text>
-      //       <Text style={styles.label}>
-      //         { location }
-      //       </Text>
-      //     </View>
-      //     <Text style={styles.sectionTitle}>
-      //       Private Messages
-      //     </Text>
-      //     <PrivateMessages messages={messages} />
-      //     { !loggedIn &&
-      //       <View style={styles.section}>
-      //         <RoundedButton onPress={NavigationActions.login}>
-      //           Log In To Send Messages
-      //         </RoundedButton>
-      //       </View>
-      //     }
-
-      //   </ScrollView>
-      //   { loggedIn &&
-      //     <View>
-      //       <View style={styles.messageInput}>
-      //         <Input
-      //           ref={input => this._input = input}
-      //           placeholder='Type message here...'
-      //           onChangeText={this.handleChangeText.bind(this)}
-      //         />
-      //         <Button
-      //           iconName='paper-plane'
-      //           onPress={this.handleSendComment.bind(this)}/>
-      //       </View>
-      //       <KeyboardSpacer />
-      //     </View>
-      //   }
-      // </View>
       <View style={styles.mainContainer}>
-        <ScrollView>
-          <Text>{name}</Text>
-          <Text>{description}</Text>
-          <Text>{start_time} - {end_time}</Text>
+        <ScrollView style={styles.sessionContainer}>
+          <View style={styles.informationContainer}>
+            <Text style={[styles.information]}>
+              DATE:
+              <Text style={[styles.informationContent]}> {day}</Text>
+            </Text>
+            <Text style={[styles.information]}>
+              SESSION TIME:
+              <Text style={[styles.informationContent]}> {start_time} - {end_time}</Text>
+            </Text>
+            <Text style={[styles.information]}>
+              LOCATION:
+              <Text style={[styles.informationContent]}> {location_name}</Text>
+            </Text>
+            <Text style={[styles.description]}>{description}</Text>
+          </View>
           <Comments comments={comments} />
           { !loggedIn &&
             <View style={styles.section}>
@@ -120,6 +97,9 @@ class BreakoutSessionScreen extends React.Component {
         { loggedIn &&
           <View>
             <View style={styles.messageInput}>
+              <Button
+                iconName='camera'
+                onPress={this.handleTakeSnapshot} />
               <Input
                 ref={input => this._input = input}
                 placeholder='Type message here...'

@@ -21,7 +21,7 @@ import { getProfiles, resetProfiles } from './DirectorySagas'
 import { openScreen } from './OpenScreenSagas'
 import { sendMessage, getMessages } from './PrivateMessageSagas'
 import { getBreakoutSessionList } from './BreakoutSessionListSagas'
-import { sendComment, getComments } from './CommentListSagas'
+import { sendComment, sendCommentWithImage, getComments } from './CommentListSagas'
 
 /* ------------- API ------------- */
 
@@ -48,6 +48,7 @@ export default function * root () {
     takeLatest(BreakoutSessionListTypes.BREAKOUT_SESSION_LIST_REQUEST, getBreakoutSessionList, api),
 
     takeLatest(CommentListTypes.SEND_COMMENT, sendComment, api),
+    takeLatest(CommentListTypes.SEND_COMMENT_WITH_IMAGE, sendCommentWithImage, api),
     takeLatest(CommentListTypes.GET_COMMENTS, getComments, api)
   ]
 }

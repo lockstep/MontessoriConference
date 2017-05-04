@@ -9,6 +9,7 @@ import find from 'lodash/find'
 
 const { Types, Creators } = createActions({
   sendComment: ['breakoutSessionId', 'comment'],
+  sendCommentWithImage: ['breakoutSessionId', 'imagePath'],
   sendCommentFailure: null,
   getComments: ['breakoutSessionId'],
   getCommentsSuccess: ['comments']

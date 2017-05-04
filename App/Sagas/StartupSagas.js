@@ -2,7 +2,10 @@ import { put, select } from 'redux-saga/effects'
 import { is } from 'ramda'
 
 // exported to make available for tests
-export const selectLogin = (state) => state.login
+export const selectLogin = (state) => {
+  console.log(state);
+  return state.login;
+}
 
 // process STARTUP actions
 export function * startup (action) {
@@ -11,7 +14,9 @@ export function * startup (action) {
     console.tron.log('Hello, I\'m an example of how to log via Reactotron.')
   }
   const {uid, client, accessToken, expiry} = yield select(selectLogin)
+  console.log('try to recover log in info')
   if (accessToken != null) {
-    yield call(api.saveCredentials, uid, client, accessToken, expiry);
+    console.log('yes!')
+    yield put(LoginActions.loginSuccess(uid, client, accessToken, expiry));
   }
 }

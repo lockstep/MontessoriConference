@@ -1,17 +1,40 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Image } from 'react-native';
 
 const Comments = ({ comments }) => {
   if (comments && comments.length > 0) {
 
-    const { containerStyle, commentStyle, agoContainerStyle, agoStyle } = styles;
+    const {
+      containerStyle,
+      messageContainerStyle,
+      authorNameStyle,
+      commentStyle,
+      imageCommentContainerStyle,
+      imageCommentStyle
+    } = styles;
 
     let commentsTags = comments.map((comment) => {
       return (
         <View key={'comment-' + comment.id} style={containerStyle}>
-          <Text style={commentStyle}>
-            {comment.message}
-          </Text>
+          <Image source={{uri: comment.author.avatar_url_small}} style={styles.image}/>
+          <View style={messageContainerStyle}>
+            <Text style={authorNameStyle}>
+              {comment.author.full_name} · {comment.author.position_with_organization}
+            </Text>
+            { comment.message &&
+              <Text style={commentStyle}>
+                {comment.message}
+              </Text>
+            }
+            { comment.image_url_large &&
+              <View style={imageCommentContainerStyle}>
+                <Image
+                  resizeMode={'contain'}
+                  source={{uri: comment.image_url_large}}
+                  style={imageCommentStyle}/>
+              </View>
+            }
+          </View>
         </View>
       );
     })
@@ -24,26 +47,47 @@ const Comments = ({ comments }) => {
   } else {
     return (
       <View>
-        <Text>No comments</Text>
+        <Text style={[styles.commentStyle]}>No comments available</Text>
       </View>
     );
   }
 }
 
 const styles = {
-  containerStyle: {
-    padding: 10,
-    marginBottom: 10,
-    backgroundColor: '#f5f5f5'
+  authorNameStyle: {
+    fontSize: 12,
+    color: '#7d7d7d'
   },
   commentStyle: {
-    fontSize: 16,
+    fontSize: 14,
+    marginTop: 10
   },
-  agoContainerStyle: {
-    flexDirection: 'row-reverse'
+  containerStyle:{
+    flexDirection: 'row',
+    paddingTop: 30,
+    alignItems: 'flex-start',
+    flex: 1
   },
-  agoStyle: {
-    fontSize: 10
+  messageContainerStyle: {
+    marginLeft: 15,
+    paddingLeft: 5,
+    paddingRight: 5,
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'flex-start'
+  },
+  image: {
+    width: 50,
+    height: 50,
+    borderRadius: 25
+  },
+  imageCommentContainerStyle: {
+    flexDirection: 'row'
+  },
+  imageCommentStyle: {
+    flex: 1,
+    height: 300,
+    width: null
   }
 }
 

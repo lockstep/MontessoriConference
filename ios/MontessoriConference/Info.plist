@@ -62,5 +62,9 @@
       <string>SimpleLineIcons.ttf</string>
       <string>Zocial.ttf</string>
     </array>
+    <key>NSCameraUsageDescription</key>
+    <string>We are using your camera to capture snapshot for the conference</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>You can pick photos and share them on the conference</string>
   </dict>
 </plist>

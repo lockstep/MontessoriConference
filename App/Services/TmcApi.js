@@ -1,11 +1,17 @@
 // a library to wrap and simplify api calls
 import apisauce from 'apisauce'
+import * as mime from 'react-native-mime-types'
 
-const BASE_ULR = __DEV__ ?
+const getFilename = (path) => {
+  let splitFilenameArray = path.split('/');
+  return splitFilenameArray[splitFilenameArray.length - 1];
+}
+
+const BASE_URL = __DEV__ ?
   'http://0.0.0.0:3000' : 'https://www.themontessoricompany.com'
 
 // our "constructor"
-const create = (baseURL = BASE_ULR) => {
+const create = (baseURL = BASE_URL) => {
   // ------
   // STEP 1
   // ------
@@ -59,9 +65,11 @@ const create = (baseURL = BASE_ULR) => {
   }
   const sendMessage = (profileId, message) => api.post(`/api/v1/users/${profileId}/send_message`, {feed_item: {message}})
   const getMessages = (profileId) => api.get(`/api/v1/users/${profileId}/private_messages`)
-  const getBreakoutSessionList = () => api.get('/api/v1/breakout_sessions')
+  const getBreakoutSessionList = () => api.get('/api/v1/conferences/1/breakout_sessions')
   const sendComment = (breakoutSessionId, message) => api.post(`/api/v1/breakout_sessions/${breakoutSessionId}/comments`, {feed_item: {message}})
   const getComments = (breakoutSessionId) => api.get(`/api/v1/breakout_sessions/${breakoutSessionId}/comments`)
+  const getAwsCredentials = (filename, content_type) => api.get('/api/v1/aws_s3_auth', {filename, content_type})
+  const createCommentWithImage = (breakoutSessionId, imageUrl) => api.post(`/api/v1/breakout_sessions/${breakoutSessionId}/comments`, {feed_item: {raw_image_s3_key: imageUrl}})
 
   // ------
   // STEP 3
@@ -84,7 +92,9 @@ const create = (baseURL = BASE_ULR) => {
     getMessages,
     getBreakoutSessionList,
     sendComment,
-    getComments
+    getComments,
+    getAwsCredentials,
+    createCommentWithImage
   }
 }
 

@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 import InfiniteScrollView from 'react-native-infinite-scroll-view'
 import { Images } from '../Themes'
-import styles from './Styles/MontessoriDirectoryScreenStyle'
+import styles from './Styles/BreakoutSessionsListScreenStyle'
 import { connect } from 'react-redux'
 import BreakoutSessionListActions, { breakoutSessionListState } from '../Redux/BreakoutSessionListRedux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
@@ -68,11 +68,20 @@ class BreakoutSessionsScreen extends React.Component {
 
     return (
       <TouchableOpacity onPress={ handlePressRow }>
-        <View style={styles.row}>
-          <Text>{rowData.name}</Text>
-          <Text>{rowData.description}</Text>
-          <Text>{rowData.start_time} - {rowData.end_time}</Text>
+        <View style={styles.rowContainer}>
+          <View style={styles.detailContainer}>
+            <Text style={[styles.time]}>
+              {rowData.day} 
+              <Text style={{color: '#009ee2'}}> · </Text> 
+              <Text style={{fontWeight: 'normal'}}>
+                {rowData.start_time} - {rowData.end_time}
+              </Text>
+            </Text>
+            <Text style={[styles.name]}>{rowData.name}</Text>
+            <Text style={[styles.description]}>{rowData.description}</Text>
+          </View>
         </View>
+        <View style={[styles.separator]}></View>
       </TouchableOpacity>
     )
   }

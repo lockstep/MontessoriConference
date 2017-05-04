@@ -5,13 +5,15 @@ import NavigationDrawer from './NavigationDrawer'
 import NavItems from './NavItems'
 
 // screens identified by the router
-import PresentationScreen from '../Containers/PresentationScreen'
+import PresentationScreen from '../Containers/PresentationScreen';
 import MontessoriDirectoryScreen from '../Containers/MontessoriDirectoryScreen';
 import DirectoryProfileScreen from '../Containers/DirectoryProfileScreen';
 import BreakoutSessionListScreen from '../Containers/BreakoutSessionListScreen';
 import BreakoutSessionScreen from '../Containers/BreakoutSessionScreen';
-import LoginScreen from '../Containers/LoginScreen'
-import AboutUsScreen from '../Containers/AboutUsScreen'
+import LoginScreen from '../Containers/LoginScreen';
+import AboutUsScreen from '../Containers/AboutUsScreen';
+import CameraScreen from '../Containers/CameraScreen';
+import PictureConfirmScreen from '../Containers/PictureConfirmScreen';
 
 /* **************************
 * Documentation: https://github.com/aksonov/react-native-router-flux
@@ -30,6 +32,8 @@ class NavigationRouter extends Component {
             <Scene key='directoryProfile' component={DirectoryProfileScreen} />
             <Scene key='login' component={LoginScreen} title='Login' hideNavBar />
             <Scene key='aboutUs' component={AboutUsScreen} title='About Us' />
+            <Scene key='camera' component={CameraScreen} hideNavBar />
+            <Scene key='pictureConfirm' component={PictureConfirmScreen} hideNavBar />
           </Scene>
         </Scene>
       </Router>
