@@ -38,6 +38,15 @@ export default class PresentationScreen extends React.Component {
             About Us
           </RoundedButton>
 
+          <RoundedButton onPress={NavigationActions.timeline}>
+            Timeline
+          </RoundedButton>
+
+          <RoundedButton onPress={NavigationActions.test}>
+            Test
+          </RoundedButton>
+
+
           <View style={styles.centered}>
             <Text style={styles.subtitle}>
               Made with ❤️ by The Montessori Company

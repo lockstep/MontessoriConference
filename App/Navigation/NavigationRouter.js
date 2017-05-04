@@ -12,6 +12,8 @@ import BreakoutSessionListScreen from '../Containers/BreakoutSessionListScreen';
 import BreakoutSessionScreen from '../Containers/BreakoutSessionScreen';
 import LoginScreen from '../Containers/LoginScreen'
 import AboutUsScreen from '../Containers/AboutUsScreen'
+import TimelineScreen from '../Containers/TimelineScreen'
+import TestScreen from '../Containers/TestScreen'
 
 /* **************************
 * Documentation: https://github.com/aksonov/react-native-router-flux
@@ -30,6 +32,8 @@ class NavigationRouter extends Component {
             <Scene key='directoryProfile' component={DirectoryProfileScreen} />
             <Scene key='login' component={LoginScreen} title='Login' hideNavBar />
             <Scene key='aboutUs' component={AboutUsScreen} title='About Us' />
+            <Scene key='timeline' component={TimelineScreen} title='Breakout Sessions' />
+            <Scene key='test' component={TestScreen} title='Test' />
           </Scene>
         </Scene>
       </Router>
