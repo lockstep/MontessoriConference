@@ -70,7 +70,13 @@ class BreakoutSessionsScreen extends React.Component {
       <TouchableOpacity onPress={ handlePressRow }>
         <View style={styles.rowContainer}>
           <View style={styles.detailContainer}>
-            <Text style={[styles.time]}>{rowData.start_time} - {rowData.end_time}</Text>
+            <Text style={[styles.time]}>
+              {rowData.day} 
+              <Text style={{color: '#009ee2'}}> · </Text> 
+              <Text style={{fontWeight: 'normal'}}>
+                {rowData.start_time} - {rowData.end_time}
+              </Text>
+            </Text>
             <Text style={[styles.name]}>{rowData.name}</Text>
             <Text style={[styles.description]}>{rowData.description}</Text>
           </View>

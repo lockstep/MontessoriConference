@@ -55,7 +55,7 @@ class BreakoutSessionScreen extends React.Component {
 
   render () {
     const {
-      name, description, start_time, end_time, organizers
+      name, description, day, start_time, end_time, location_name, organizers
     } = this.props.breakoutSession;
 
     const { loggedIn, comments } = this.props;
@@ -104,10 +104,22 @@ class BreakoutSessionScreen extends React.Component {
       //   }
       // </View>
       <View style={styles.mainContainer}>
-        <ScrollView>
-          <Text>{name}</Text>
-          <Text>{description}</Text>
-          <Text>{start_time} - {end_time}</Text>
+        <ScrollView style={styles.sessionContainer}>
+          <View style={styles.informationContainer}>
+            <Text style={[styles.information]}>
+              DATE:
+              <Text style={[styles.informationContent]}> {day}</Text>
+            </Text>
+            <Text style={[styles.information]}>
+              SESSION TIME:
+              <Text style={[styles.informationContent]}> {start_time} - {end_time}</Text>
+            </Text>
+            <Text style={[styles.information]}>
+              LOCATION:
+              <Text style={[styles.informationContent]}> {location_name}</Text>
+            </Text>
+            <Text style={[styles.description]}>{description}</Text>
+          </View>
           <Comments comments={comments} />
           { !loggedIn &&
             <View style={styles.section}>

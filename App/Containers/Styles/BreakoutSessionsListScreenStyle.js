@@ -13,8 +13,7 @@ export default StyleSheet.create({
   },
   description:{
     marginTop: 5,
-    color: 'grey',
-    fontWeight: 'bold'
+    color: 'grey'
   },
   time: {
     fontWeight: 'bold',
@@ -26,6 +25,7 @@ export default StyleSheet.create({
     alignItems: 'stretch',
     justifyContent: 'center',
     marginLeft: 20,
+    marginRight: 15,
     marginTop: 10,
     marginBottom: 10
   },
