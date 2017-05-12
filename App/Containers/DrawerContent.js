@@ -33,6 +33,11 @@ class DrawerContent extends Component {
     NavigationActions.breakoutSessions()
   }
 
+  handlePressConferencePhotos = () => {
+    this.toggleDrawer()
+    NavigationActions.conferencePhotos()
+  }
+
   handlePressAboutUs = () => {
     this.toggleDrawer()
     NavigationActions.aboutUs()
@@ -45,6 +50,7 @@ class DrawerContent extends Component {
         <DrawerButton text='Montessori Directory'
           onPress={this.handlePressDirectory} />
         <DrawerButton text='Breakout Sessions' onPress={this.handlePressBreakoutSessions} />
+        <DrawerButton text='Conference Photos' onPress={this.handlePressConferencePhotos} />
         <DrawerButton text='About Us' onPress={this.handlePressAboutUs} />
       </ScrollView>
     )

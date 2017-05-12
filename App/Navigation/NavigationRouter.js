@@ -9,6 +9,7 @@ import PresentationScreen from '../Containers/PresentationScreen';
 import MontessoriDirectoryScreen from '../Containers/MontessoriDirectoryScreen';
 import DirectoryProfileScreen from '../Containers/DirectoryProfileScreen';
 import BreakoutSessionListScreen from '../Containers/BreakoutSessionListScreen';
+import ConferencePhotosScreen from '../Containers/ConferencePhotosScreen';
 import BreakoutSessionScreen from '../Containers/BreakoutSessionScreen';
 import LoginScreen from '../Containers/LoginScreen';
 import AboutUsScreen from '../Containers/AboutUsScreen';
@@ -28,6 +29,7 @@ class NavigationRouter extends Component {
             <Scene initial key='presentationScreen' component={PresentationScreen} title='Home' renderLeftButton={NavItems.hamburgerButton} />
             <Scene key='montessoriDirectory' component={MontessoriDirectoryScreen} title='Directory' />
             <Scene key='breakoutSessionList' component={BreakoutSessionListScreen} title='Breakout Sessions' />
+            <Scene key='conferencePhotos' component={ConferencePhotosScreen} titile='Conference Photos' />
             <Scene key='breakoutSession' component={BreakoutSessionScreen} />
             <Scene key='directoryProfile' component={DirectoryProfileScreen} />
             <Scene key='login' component={LoginScreen} title='Login' hideNavBar />

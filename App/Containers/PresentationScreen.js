@@ -34,6 +34,10 @@ export default class PresentationScreen extends React.Component {
             Breakout Sessions
           </RoundedButton>
 
+          <RoundedButton onPress={NavigationActions.conferencePhotos}>
+            Conference Photos
+          </RoundedButton>
+
           <RoundedButton onPress={NavigationActions.aboutUs}>
             About Us
           </RoundedButton>

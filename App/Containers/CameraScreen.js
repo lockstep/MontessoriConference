@@ -18,8 +18,7 @@ class CameraScreen extends Component {
     this.camera.capture({metadata: options})
       .then((data) => {
         NavigationActions.pictureConfirm({
-          breakoutSessionId: this.props.breakoutSessionId,
-          name: this.props.name,
+          callerInfo: this.props.callerInfo,
           image: data.path,
           type: 'replace'
         })

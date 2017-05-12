@@ -12,6 +12,7 @@ import { OpenScreenTypes } from '../Redux/OpenScreenRedux'
 import { PrivateMessageTypes } from '../Redux/PrivateMessageRedux'
 import { BreakoutSessionListTypes } from '../Redux/BreakoutSessionListRedux'
 import { CommentListTypes } from '../Redux/CommentListRedux'
+import { ConferencePhotosTypes } from '../Redux/ConferencePhotosRedux'
 
 /* ------------- Sagas ------------- */
 
@@ -22,6 +23,7 @@ import { openScreen } from './OpenScreenSagas'
 import { sendMessage, getMessages } from './PrivateMessageSagas'
 import { getBreakoutSessionList } from './BreakoutSessionListSagas'
 import { sendComment, sendCommentWithImage, getComments } from './CommentListSagas'
+import { getConferencePhotos, resetConferencePhotos, createConferencePhoto } from './ConferencePhotosSagas'
 
 /* ------------- API ------------- */
 
@@ -49,6 +51,10 @@ export default function * root () {
 
     takeLatest(CommentListTypes.SEND_COMMENT, sendComment, api),
     takeLatest(CommentListTypes.SEND_COMMENT_WITH_IMAGE, sendCommentWithImage, api),
-    takeLatest(CommentListTypes.GET_COMMENTS, getComments, api)
+    takeLatest(CommentListTypes.GET_COMMENTS, getComments, api),
+
+    takeLatest(ConferencePhotosTypes.CONFERENCE_PHOTOS_REQUEST, getConferencePhotos, api),
+    takeLatest(ConferencePhotosTypes.CONFERENCE_PHOTOS_RESET, resetConferencePhotos),
+    takeLatest(ConferencePhotosTypes.CREATE_CONFERENCE_PHOTO_REQUEST, createConferencePhoto, api)
   ]
 }

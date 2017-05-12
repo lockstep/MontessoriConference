@@ -70,6 +70,10 @@ const create = (baseURL = BASE_URL) => {
   const getComments = (breakoutSessionId) => api.get(`/api/v1/breakout_sessions/${breakoutSessionId}/comments`)
   const getAwsCredentials = (filename, content_type) => api.get('/api/v1/aws_s3_auth', {filename, content_type})
   const createCommentWithImage = (breakoutSessionId, imageUrl) => api.post(`/api/v1/breakout_sessions/${breakoutSessionId}/comments`, {feed_item: {raw_image_s3_key: imageUrl}})
+  const getConferencePhotos = (page) => {
+    return api.get('/api/v1/conferences/1/images', Object.assign({ page }))
+  }
+  const createConferencePhoto = (imageUrl) => api.post('/api/v1/conferences/1/images', {feed_item: {raw_image_s3_key: imageUrl}})
 
   // ------
   // STEP 3
@@ -94,7 +98,9 @@ const create = (baseURL = BASE_URL) => {
     sendComment,
     getComments,
     getAwsCredentials,
-    createCommentWithImage
+    createCommentWithImage,
+    getConferencePhotos,
+    createConferencePhoto
   }
 }
 

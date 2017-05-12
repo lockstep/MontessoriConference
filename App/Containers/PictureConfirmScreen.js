@@ -4,22 +4,27 @@ import { Text, View, TouchableOpacity, Image } from 'react-native';
 import { Actions as NavigationActions } from 'react-native-router-flux';
 import { Images } from '../Themes'
 import CommentListActions from '../Redux/CommentListRedux'
+import ConferencePhotosActions from '../Redux/ConferencePhotosRedux'
 
 import styles from './Styles/PictureConfirmScreenStyle';
 
 class PictureConfirmScreen extends Component {
   handlePressCancel = () => {
     NavigationActions.camera({
-      breakoutSessionId: this.props.breakoutSessionId,
-      name: this.props.name,
+      callerInfo: this.props.callerInfo,
       type: 'replace'
     });
   }
 
   handlePressOk = () => {
     console.log('press OK');
-    // creating a message
-    this.props.sendCommentWithImage(this.props.breakoutSessionId, this.props.image);
+    if (this.props.callerInfo.screen == 'breakoutSession') {
+      this.props.sendCommentWithImage(this.props.callerInfo.breakoutSessionId, this.props.image);
+    }
+
+    if (this.props.callerInfo.screen == 'conferencePhotos') {
+      this.props.createConferencePhoto(this.props.image);
+    }
   }
 
   render() {
@@ -46,6 +51,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     sendCommentWithImage: (breakoutSessionId, imagePath) => dispatch(CommentListActions.sendCommentWithImage(breakoutSessionId, imagePath)),
+    createConferencePhoto: (imagePath) => dispatch(ConferencePhotosActions.createConferencePhotoRequest(imagePath))
   }
 }
 

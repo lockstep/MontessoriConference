@@ -42,8 +42,11 @@ class BreakoutSessionScreen extends React.Component {
 
   handleTakeSnapshot = () => {
     NavigationActions.camera({
-      breakoutSessionId: this.props.breakoutSessionId,
-      name: this.props.name
+      callerInfo: {
+        screen: 'breakoutSession',
+        breakoutSessionId: this.props.breakoutSessionId,
+        name: this.props.name
+      }
     });
   }
 
