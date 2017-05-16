@@ -36,7 +36,6 @@ export const request = (state: Object, action: Object) => {
 
 // we've successfully retrieved breakout sessions
 export const success = (state: Object, action: Object) => {
-  console.log('success', state, action);
   const { conferencePhotos } = action;
   const allPhotos = state.conferencePhotos.concat(conferencePhotos)
   return state.merge({

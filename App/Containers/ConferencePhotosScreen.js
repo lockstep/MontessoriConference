@@ -36,7 +36,6 @@ class ConferencePhotosScreen extends React.Component {
   }
 
   componentWillReceiveProps (newProps) {
-    console.log('property changed', newProps)
     if (newProps.conferencePhotos) {
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(newProps.conferencePhotos)
