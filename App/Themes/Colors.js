@@ -2,6 +2,7 @@
 
 const colors = {
   background: 'white',
+  grey: 'grey',
   dark: '#080e1f',
   clear: 'rgba(0,0,0,0)',
   facebook: '#3b5998',

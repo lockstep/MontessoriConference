@@ -8,12 +8,12 @@ export default StyleSheet.create({
   ...ApplicationStyles.screen,
   name: {
     fontSize: 16,
-    color: '#009ee2',
+    color: Colors.seaBlue,
     fontWeight: 'bold'
   },
   description:{
     marginTop: 5,
-    color: 'grey'
+    color: Colors.grey
   },
   time: {
     fontWeight: 'bold',
@@ -24,10 +24,8 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: 'stretch',
     justifyContent: 'center',
-    marginLeft: 20,
-    marginRight: 15,
-    marginTop: 10,
-    marginBottom: 10
+    marginHorizontal: Metrics.doubleBaseMargin,
+    marginVertical: Metrics.doubleBaseMargin
   },
   detailContainer: {
     flex: 1
@@ -35,7 +33,5 @@ export default StyleSheet.create({
   separator: {
     height: 1,
     backgroundColor: '#dedede',
-    marginTop: 10,
-    marginBottom: 10
   }
 })

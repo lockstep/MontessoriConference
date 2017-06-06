@@ -123,7 +123,7 @@ class ConferencePhotosScreen extends React.Component {
         {
           !loggedIn &&
           <View style={styles.section}>
-            <RoundedButton onPress={NavigationActions.login}>
+            <RoundedButton onPress={NavigationActions.login} alternateStyle="darkButton">
               Log In To Post A Photo
             </RoundedButton>
           </View>

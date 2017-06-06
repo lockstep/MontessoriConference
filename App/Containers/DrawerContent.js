@@ -28,9 +28,14 @@ class DrawerContent extends Component {
     NavigationActions.componentExamples()
   }
 
+  handlePressDirectory = () => {
+    this.toggleDrawer()
+    NavigationActions.montessoriDirectory()
+  }
+
   handlePressBreakoutSessions = () => {
     this.toggleDrawer()
-    NavigationActions.breakoutSessions()
+    NavigationActions.breakoutSessionList()
   }
 
   handlePressConferencePhotos = () => {
