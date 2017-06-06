@@ -13,8 +13,7 @@ export function * sendMessage (api, { profileId, message }) {
     if (response.ok) {
       yield put(PrivateMessageActions.getMessages(profileId));
     } else {
-      console.log('error');
-      yield put(PrivateMessageActions.sendMessageFailure('error'));
+      yield put(PrivateMessageActions.sendMessageFailure());
     }
   }
   // if (password === '') {

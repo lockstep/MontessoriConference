@@ -30,9 +30,9 @@ export default StyleSheet.create({
     color: Colors.steel
   },
   loginRow: {
-    paddingBottom: Metrics.doubleBaseMargin,
-    paddingHorizontal: Metrics.doubleBaseMargin,
-    flexDirection: 'row'
+    // paddingBottom: Metrics.doubleBaseMargin,
+    // paddingHorizontal: Metrics.doubleBaseMargin,
+    // flexDirection: 'row'
   },
   loginButtonWrapper: {
     flex: 1
@@ -40,8 +40,9 @@ export default StyleSheet.create({
   loginButton: {
     flex: 1,
     borderWidth: 1,
-    borderColor: Colors.charcoal,
-    backgroundColor: Colors.panther,
+    borderColor: Colors.seaBlue,
+    backgroundColor: Colors.seaBlue,
+    paddingBottom: Metrics.doubleBaseMargin,
     padding: 6
   },
   loginText: {

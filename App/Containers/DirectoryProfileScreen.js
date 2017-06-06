@@ -9,7 +9,7 @@ import styles from './Styles/DirectoryProfileScreenStyle'
 import { connect } from 'react-redux'
 import ProfileActions, { profileState } from '../Redux/ProfileRedux'
 import { directoryState } from '../Redux/DirectoryRedux'
-import { isLoggedIn } from '../Redux/LoginRedux'
+import { loginState, isLoggedIn } from '../Redux/LoginRedux'
 import PrivateMessageActions, { privateMessageState } from '../Redux/PrivateMessageRedux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 import KeyboardSpacer from 'react-native-keyboard-spacer';
@@ -44,7 +44,7 @@ class DirectoryProfileScreen extends React.Component {
   }
 
   handleSendMessage() {
-    console.log('should send message: ' + this.state.message);
+    // console.log('should send message: ' + this.state.message);
     // Calling a service to send message
     this.props.sendMessage(this.props.profileId, this.state.message);
 
@@ -54,7 +54,8 @@ class DirectoryProfileScreen extends React.Component {
 
   render () {
     const {
-      name, position, location, bio, profileImageUrl, loggedIn, messages
+      name, position, location, bio, profileImageUrl, loggedIn, messages,
+      login, messagesError
     } = this.props;
 
     return (
@@ -71,13 +72,18 @@ class DirectoryProfileScreen extends React.Component {
               { location }
             </Text>
           </View>
-          <Text style={styles.sectionTitle}>
-            Private Messages
-          </Text>
-          <PrivateMessages messages={messages} />
+          {
+            loggedIn &&
+            <Text style={styles.sectionTitle}>
+              Private Messages
+            </Text>
+          }
+          {
+            loggedIn && <PrivateMessages messages={messages} messagesError={messagesError} login={login} />
+          }
           { !loggedIn &&
             <View style={styles.section}>
-              <RoundedButton onPress={NavigationActions.login}>
+              <RoundedButton onPress={NavigationActions.login} alternateStyle="darkButton">
                 Log In To Send Messages
               </RoundedButton>
             </View>
@@ -113,7 +119,9 @@ const mapStateToProps = (state) => {
     bio: profileState(state).bio,
     profileImageUrl: profileState(state).avatar_url_medium,
     loggedIn: isLoggedIn(state.login),
-    messages: privateMessageState(state).messages
+    login: loginState(state),
+    messages: privateMessageState(state).messages,
+    messagesError: privateMessageState(state).error
   }
 }
 

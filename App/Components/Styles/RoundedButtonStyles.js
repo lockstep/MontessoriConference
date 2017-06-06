@@ -10,6 +10,14 @@ export default StyleSheet.create({
     backgroundColor: Colors.cloud,
     justifyContent: 'center'
   },
+  darkButton: {
+    height: 45,
+    borderRadius: 5,
+    // marginHorizontal: Metrics.section,
+    marginVertical: Metrics.baseMargin,
+    backgroundColor: Colors.seaBlue,
+    justifyContent: 'center'
+  },
   buttonText: {
     color: Colors.snow,
     textAlign: 'center',

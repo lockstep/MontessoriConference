@@ -21,7 +21,7 @@ const Comments = ({ comments }) => {
             <Text style={authorNameStyle}>
               {comment.author.full_name} · {comment.author.position_with_organization}
             </Text>
-            { comment.message &&
+            { (comment.message || '').length > 0 &&
               <Text style={commentStyle}>
                 {comment.message}
               </Text>

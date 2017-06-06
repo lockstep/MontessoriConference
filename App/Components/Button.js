@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Metrics, Colors } from '../Themes/'
 
 const Button = ({ style, onPress, children, iconName }) => {
   const { buttonStyle, containerStyle, textStyle, iconStyle } = styles;
@@ -16,7 +17,7 @@ const Button = ({ style, onPress, children, iconName }) => {
 
 const styles = {
   buttonStyle: {
-    backgroundColor: '#0c7abf',
+    backgroundColor: Colors.seaBlue,
   },
   containerStyle: {
     flexDirection: 'row',

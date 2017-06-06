@@ -31,6 +31,6 @@ export default StyleSheet.create({
   },
   sectionTitle: ApplicationStyles.sectionTitle,
   messageInput: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   }
 })

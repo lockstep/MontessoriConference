@@ -17,6 +17,7 @@ import {Images, Metrics} from '../Themes'
 import LoginActions from '../Redux/LoginRedux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 import I18n from 'react-native-i18n'
+import RoundedButton from '../Components/RoundedButton'
 
 type LoginScreenProps = {
   dispatch: () => any,
@@ -112,7 +113,7 @@ class LoginScreen extends React.Component {
     const editable = !fetching
     const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
     return (
-      <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: this.state.visibleHeight}]} keyboardShouldPersistTaps>
+      <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: this.state.visibleHeight}]} keyboardShouldPersistTaps="always">
         <Text style={Styles.sectionTitle}>
           Welcome! Sign in below:
         </Text>
@@ -152,17 +153,13 @@ class LoginScreen extends React.Component {
               placeholder={I18n.t('password')} />
           </View>
 
-          <View style={[Styles.loginRow]}>
-            <TouchableOpacity style={Styles.loginButtonWrapper} onPress={this.handlePressLogin}>
-              <View style={Styles.loginButton}>
-                <Text style={Styles.loginText}>{I18n.t('signIn')}</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={Styles.loginButtonWrapper} onPress={NavigationActions.pop}>
-              <View style={Styles.loginButton}>
-                <Text style={Styles.loginText}>{I18n.t('cancel')}</Text>
-              </View>
-            </TouchableOpacity>
+          <View style={[Styles.row]}>
+            <RoundedButton onPress={this.handlePressLogin} alternateStyle="darkButton">
+              { I18n.t('signIn') }
+            </RoundedButton>
+            <RoundedButton onPress={NavigationActions.pop} alternateStyle="darkButton">
+            { I18n.t('cancel') }
+            </RoundedButton>
           </View>
         </View>
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { TextInput, View, Text, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Metrics, Colors } from '../Themes/'
 
 class Input extends React.Component {
   constructor(props) {
@@ -33,7 +34,7 @@ class Input extends React.Component {
 const styles = {
   containerStyle: {
     height: 40,
-    backgroundColor: 'gray',
+    backgroundColor: Colors.seaBlue,
     padding: 5,
     flex: 1
   },
@@ -41,8 +42,8 @@ const styles = {
     fontSize: 20,
     alignItems: 'center',
     lineHeight: (Platform.OS === 'ios') ? 40 : 28,
-    color: 'rgba(255,255,255,0.4)',
-    backgroundColor: 'rgba(0,0,0,0)',
+    color: Colors.seaBlue,
+    backgroundColor: Colors.seaBlue,
     paddingLeft: 5,
     paddingRight: 5
   },

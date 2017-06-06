@@ -9,6 +9,7 @@ const getFilename = (path) => {
 
 const BASE_URL = __DEV__ ?
   'http://0.0.0.0:3000' : 'https://www.themontessoricompany.com'
+// const BASE_URL = 'https://www.themontessoricompany.com'
 
 // our "constructor"
 const create = (baseURL = BASE_URL) => {
@@ -53,7 +54,7 @@ const create = (baseURL = BASE_URL) => {
   const getProfiles = (page, searchParams) => {
     return api.get('/directory', Object.assign({ page }, searchParams))
   }
-  const saveCredentials = (uid, client, accessToken, expiry) => {
+  const saveCredentials = (id, uid, client, accessToken, expiry) => {
     console.log('saveCredentials', uid, client, accessToken)
     api.addRequestTransform(request => {
       request.headers['access-token'] = accessToken;

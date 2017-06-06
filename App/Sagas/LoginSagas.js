@@ -11,8 +11,9 @@ export function * login (api, { email, password }) {
 
     if (response.ok) {
       const { uid, client, expiry } = response.headers
+      const { id } = response.data.user
       const accessToken = response.headers['access-token']
-      yield put(LoginActions.loginSuccess(uid, client, accessToken, expiry))
+      yield put(LoginActions.loginSuccess(id, uid, client, accessToken, expiry))
     } else {
       console.log('Login failure')
       yield put(LoginActions.loginFailure('error'))
@@ -22,6 +23,6 @@ export function * login (api, { email, password }) {
   }
 }
 
-export function * loginSuccess (api, { uid, client, accessToken, expiry }) {
-  yield call(api.saveCredentials, uid, client, accessToken, expiry);
+export function * loginSuccess (api, { id, uid, client, accessToken, expiry }) {
+  yield call(api.saveCredentials, id, uid, client, accessToken, expiry);
 }

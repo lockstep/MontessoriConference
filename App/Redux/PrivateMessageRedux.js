@@ -10,7 +10,8 @@ import find from 'lodash/find'
 const { Types, Creators } = createActions({
   sendMessage: ['profileId', 'message'],
   getMessages: ['profileId'],
-  getMessagesSuccess: ['messages']
+  getMessagesSuccess: ['messages'],
+  sendMessageFailure: []
 })
 
 export const PrivateMessageTypes = Types
@@ -20,18 +21,26 @@ export default Creators
 
 export const INITIAL_STATE = Immutable({
   fetching: false,
-  messages: []
+  messages: [],
+  error: null
 })
 
 /* ------------- Reducers ------------- */
 
 // we're attempting to send message
-export const createMessage = (state: Object) => state.merge({ fetching: true });
-export const requestMessages = (state: Object) => state.merge({ messages: [] });
+export const createMessage = (state: Object) => state.merge({ error: false, fetching: true });
+export const requestMessages = (state: Object) => state.merge({ error: false, messages: [] });
 export const requestMessagesSuccess = (state: Object, {messages}: Object) => {
   return state.merge({
     fetching: false,
-    messages
+    messages,
+    error: false
+  })
+};
+export const createMessageFailure = (state: Object) => {
+  return state.merge({
+    fetching: false,
+    error: 'This user has disabled private messages.'
   })
 };
 
@@ -40,7 +49,8 @@ export const requestMessagesSuccess = (state: Object, {messages}: Object) => {
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.SEND_MESSAGE]: createMessage,
   [Types.GET_MESSAGES]: requestMessages,
-  [Types.GET_MESSAGES_SUCCESS]: requestMessagesSuccess
+  [Types.GET_MESSAGES_SUCCESS]: requestMessagesSuccess,
+  [Types.SEND_MESSAGE_FAILURE]: createMessageFailure
 })
 
 /* ------------- Selectors ------------- */
