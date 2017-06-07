@@ -29,7 +29,7 @@ class NavigationRouter extends Component {
             <Scene initial key='presentationScreen' component={PresentationScreen} title='Home' renderLeftButton={NavItems.hamburgerButton} />
             <Scene key='montessoriDirectory' component={MontessoriDirectoryScreen} title='Directory' />
             <Scene key='breakoutSessionList' component={BreakoutSessionListScreen} title='Breakout Sessions' />
-            <Scene key='conferencePhotos' component={ConferencePhotosScreen} titile='Conference Photos' />
+            <Scene key='conferencePhotos' component={ConferencePhotosScreen} title='Photo Feed' />
             <Scene key='breakoutSession' component={BreakoutSessionScreen} />
             <Scene key='directoryProfile' component={DirectoryProfileScreen} />
             <Scene key='login' component={LoginScreen} title='Login' hideNavBar />

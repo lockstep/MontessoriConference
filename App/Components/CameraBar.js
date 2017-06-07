@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import Button from './Button';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Colors } from '../Themes/'
 
 const CameraBar = ({ style, onPress }) => {
   const { cameraBarContainer } = styles;
@@ -17,7 +18,7 @@ const CameraBar = ({ style, onPress }) => {
 
 const styles = {
   cameraBarContainer: {
-    backgroundColor: '#0c7abf',
+    backgroundColor: Colors.seaBlue,
     flexDirection: 'row',
     justifyContent: 'center'
   }

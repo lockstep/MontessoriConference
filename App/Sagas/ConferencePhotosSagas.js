@@ -45,7 +45,7 @@ export function * createConferencePhoto (api, { imagePath }) {
       response = yield call(api.createConferencePhoto, credentials.key);
       if (response.ok) {
         NavigationActions.pop();
-        yield put(ConferencePhotosActions.resetConferencePhotos());
+        yield put(ConferencePhotosActions.conferencePhotosReset());
       }
     }
   }
