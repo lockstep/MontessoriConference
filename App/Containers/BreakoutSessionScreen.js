@@ -17,6 +17,7 @@ import RoundedButton from '../Components/RoundedButton'
 import Input from '../Components/Input';
 import Button from '../Components/Button';
 import Comments from '../Components/Comments';
+import ProfileTile from '../Components/ProfileTile';
 
 class BreakoutSessionScreen extends React.Component {
 
@@ -69,29 +70,39 @@ class BreakoutSessionScreen extends React.Component {
     } = this.props.breakoutSession;
 
     const { loggedIn, comments } = this.props;
-
     return (
       <View style={styles.mainContainer}>
         <ScrollView style={styles.sessionContainer}>
-          <View style={styles.informationContainer}>
-            <Text style={[styles.information]}>
-              DATE:
-              <Text style={[styles.informationContent]}> {day}</Text>
-            </Text>
-            <Text style={[styles.information]}>
-              SESSION TIME:
-              <Text style={[styles.informationContent]}> {start_time} - {end_time}</Text>
-            </Text>
-            <Text style={[styles.information]}>
-              LOCATION:
-              <Text style={[styles.informationContent]}> {location_name}</Text>
-            </Text>
-            <Text style={[styles.description]}>{description}</Text>
+          <Text style={styles.nameTitle}>{name}</Text>
+          { organizers.map(organizer => {
+            return <ProfileTile { ...organizer }/>
+          })}
+          <View style={styles.informationContainerWrapper}>
+            <View style={styles.informationContainer}>
+              <Text style={[styles.information]}>DATE:</Text>
+              <Text style={[styles.informationContent]}>{day}</Text>
+            </View>
+            <View style={styles.informationContainer}>
+              <Text style={[styles.information]}>TIME:</Text>
+              <Text style={[styles.informationContent]}>{start_time} - {end_time}</Text>
+            </View>
           </View>
+          <View style={styles.informationContainer}>
+            <Text style={styles.information}>LOCATION:</Text>
+            <Text style={[styles.informationContent]}>{location_name}</Text>
+          </View>
+          {
+            (description || '').length > 0 &&
+            <View style={styles.informationContainer}>
+              <Text style={styles.information}>DESCRIPTION:</Text>
+              <Text style={[styles.informationContent]}>{description}</Text>
+            </View>
+          }
+          <Text style={styles.commentTitle}>Discussion</Text>
           <Comments comments={comments} />
           { !loggedIn &&
             <View style={styles.section}>
-              <RoundedButton onPress={NavigationActions.login}>
+              <RoundedButton onPress={NavigationActions.login} alternateStyle='darkButton'>
                 Log In To Comment
               </RoundedButton>
             </View>

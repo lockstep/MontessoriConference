@@ -9,6 +9,7 @@ import {
 import InfiniteScrollView from 'react-native-infinite-scroll-view'
 import { Images } from '../Themes'
 import styles from './Styles/MontessoriDirectoryScreenStyle'
+import ProfileTile from '../Components/ProfileTile'
 import { connect } from 'react-redux'
 import DirectoryActions, { directoryState } from '../Redux/DirectoryRedux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
@@ -64,32 +65,7 @@ class MontessoriDirectoryScreen extends React.Component {
   }
 
   renderRow (rowData) {
-
-    handlePressRow = () => {
-      NavigationActions.directoryProfile({
-        profileId: rowData.id, title: rowData.first_name
-      });
-    }
-
-    return (
-      <TouchableOpacity onPress={ handlePressRow }>
-        <View style={styles.row}>
-          <View style={styles.imageWrapper}>
-            <Image source={{ uri: rowData.avatar_url_small }}
-              style={styles.image} />
-          </View>
-          <View style={styles.info}>
-            <Text style={styles.boldLabel}>{rowData.full_name}</Text>
-            <Text style={styles.label} numberOfLines={1}>
-              {rowData.position_with_organization}
-            </Text>
-            <Text style={styles.label} numberOfLines={1}>
-              {rowData.full_address_country}
-            </Text>
-          </View>
-        </View>
-      </TouchableOpacity>
-    )
+    return <ProfileTile { ...rowData } />
   }
 
   renderHeader () {

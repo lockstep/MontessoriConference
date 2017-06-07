@@ -64,7 +64,7 @@ const styles = {
   },
   containerStyle:{
     flexDirection: 'row',
-    paddingTop: 30,
+    paddingTop: 20,
     alignItems: 'flex-start',
     flex: 1
   },
@@ -86,8 +86,8 @@ const styles = {
   },
   imageCommentStyle: {
     flex: 1,
-    height: 300,
-    width: null
+    height: 200,
+    marginTop: 10
   }
 }
 

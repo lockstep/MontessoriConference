@@ -62,7 +62,7 @@ class BreakoutSessionsScreen extends React.Component {
 
     handlePressRow = () => {
       NavigationActions.breakoutSession({
-        breakoutSessionId: rowData.id, title: rowData.name
+        breakoutSessionId: rowData.id, title: 'Breakout Detail'
       });
     }
 

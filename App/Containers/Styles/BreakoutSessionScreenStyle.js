@@ -2,10 +2,29 @@
 
 import { StyleSheet } from 'react-native'
 import { ApplicationStyles } from '../../Themes/'
-import { Metrics, Colors } from '../../Themes/'
+import { Metrics, Colors, Fonts } from '../../Themes/'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
+  nameTitle: {
+    ...Fonts.style.h5,
+    color: Colors.seaBlue,
+    padding: Metrics.smallMargin,
+    marginHorizontal: Metrics.baseMargin,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.seaBlue,
+    marginBottom: 10,
+    textAlign: 'center',
+    alignItems: 'center',
+  },
+  commentTitle: {
+    ...Fonts.style.h5,
+    color: Colors.seaBlue,
+    marginHorizontal: Metrics.baseMargin,
+    marginTop: Metrics.doubleBaseMargin,
+    textAlign: 'center',
+    alignItems: 'center',
+  },
   messageInput: {
     flexDirection: 'row'
   },
@@ -15,17 +34,20 @@ export default StyleSheet.create({
     marginTop: 10,
     marginBottom: 10
   },
+  informationContainerWrapper: {
+    flexDirection: 'row'
+  },
   informationContainer: {
-    backgroundColor: '#f5f5f5'
+    marginTop: Metrics.baseMargin,
+    flex: 1
   },
   information: {
     fontSize: 13,
     color: '#7d7d7d',
-    padding: 5
   },
   informationContent: {
     fontSize: 14,
-    color: 'black'
+    color: 'black',
   },
   description:{
     marginTop: 10,
