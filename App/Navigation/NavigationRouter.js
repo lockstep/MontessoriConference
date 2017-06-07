@@ -33,7 +33,7 @@ class NavigationRouter extends Component {
             <Scene key='breakoutSession' component={BreakoutSessionScreen} />
             <Scene key='directoryProfile' component={DirectoryProfileScreen} />
             <Scene key='login' component={LoginScreen} title='Login' hideNavBar />
-            <Scene key='aboutUs' component={AboutUsScreen} title='About Us' />
+            <Scene key='aboutUs' component={AboutUsScreen} title='About' />
             <Scene key='camera' component={CameraScreen} hideNavBar />
             <Scene key='pictureConfirm' component={PictureConfirmScreen} hideNavBar />
           </Scene>

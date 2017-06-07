@@ -21,19 +21,23 @@ export default class AboutUsScreen extends React.Component {
 
           <View style={styles.section}>
             <Text style={styles.sectionText}>
-              AMI is the custodian and cultivator of Montessori philosophy and
-              pedagogy, seeking to maintain the integrity of Montessori’s legacy
-              and increase capacity to serve children around the world.
+            The Association Montessori Internationale (AMI) was founded in 1929 by Maria Montessori to maintain the integrity of her life’s work and to ensure that it would be perpetuated after her death. AMI is the recognised international authority for Montessori education. During its long history AMI has fostered the growth and development of Montessori programmes and teacher training, along with supporting the development and education of children and young adults in a vast variety of settings throughout the world.
             </Text>
             <Text style={styles.sectionText}>
-              MIP, in line with AMI’s vision and goals, inspires and educates
-              children, parents and teachers from the CR and the whole of Central
-              and Eastern Europe. It contributes to cultivation and development
-              of education on national and international levels and provides space
-              and support to the development of human potential.
-            </Text>
+              AMI is a Non-Governmental Organisation (NGO) associated with the United Nations Department of Public Information (since 1985) and a NGO in operational relations with UNESCO (since 1962).
+
+            
+          </Text>
+              <Text style={styles.sectionText}>
+              ~
+              </Text>
             <Text style={styles.sectionText}>
-              All Rights Reserved © MIP 2016
+              The Montessori Company is dedicated to helping guides create
+              wonderful experiences and environments for their children.
+              We partnered with AMI to further this effort by facilitating
+              better communication and collaboration among guides everywhere
+            via this mobile app and The Montessori Directory online
+            TheMontessoriCompany.com.
             </Text>
           </View>
         </ScrollView>

@@ -20,8 +20,8 @@ export default class PresentationScreen extends React.Component {
 
           <View style={styles.section} >
             <Text style={styles.sectionText} >
-              Welcome to the Montessori Community application!
-              Build relationships before, during and after the conference
+              Welcome to the IMC Prague 2017 application!
+              Build relationships before, during and after the Congress
               with the resources below:
             </Text>
           </View>
@@ -39,7 +39,7 @@ export default class PresentationScreen extends React.Component {
           </RoundedButton>
 
           <RoundedButton onPress={NavigationActions.aboutUs}>
-            About Us
+            About
           </RoundedButton>
 
           <View style={styles.centered}>
