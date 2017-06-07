@@ -10,7 +10,8 @@ const Comments = ({ comments }) => {
       authorNameStyle,
       commentStyle,
       imageCommentContainerStyle,
-      imageCommentStyle
+      imageCommentStyle,
+      italicizedCommentStyle
     } = styles;
 
     let commentsTags = comments.map((comment) => {
@@ -33,6 +34,12 @@ const Comments = ({ comments }) => {
                   source={{uri: comment.image_url_large}}
                   style={imageCommentStyle}/>
               </View>
+            }
+            {
+              (comment.message || '').length === 0 && !comment.image_url_large &&
+                <Text style={italicizedCommentStyle}>
+                  Image processing, please check back in a bit!
+                </Text>
             }
           </View>
         </View>
@@ -61,6 +68,11 @@ const styles = {
   commentStyle: {
     fontSize: 14,
     marginTop: 10
+  },
+  italicizedCommentStyle: {
+    fontSize: 14,
+    marginTop: 10,
+    fontStyle: 'italic'
   },
   containerStyle:{
     flexDirection: 'row',
