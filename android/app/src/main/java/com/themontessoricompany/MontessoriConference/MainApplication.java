@@ -1,4 +1,4 @@
-package com.montessoriconference;
+package com.themontessoricompany.MontessoriConference;
 
 import android.app.Application;
 
