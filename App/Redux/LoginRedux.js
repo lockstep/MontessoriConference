@@ -9,7 +9,7 @@ const { Types, Creators } = createActions({
   loginRequest: ['email', 'password'],
   loginSuccess: ['id', 'uid', 'client', 'accessToken', 'expiry'],
   loginFailure: ['error'],
-  logout: null
+  logOut: null
 })
 
 export const LoginTypes = Types
@@ -41,7 +41,7 @@ export const failure = (state: Object, { error }: Object) =>
   state.merge({ fetching: false, error })
 
 // we've logged out
-export const logout = (state: Object) => INITIAL_STATE
+export const logOut = (state: Object) => INITIAL_STATE
 
 /* ------------- Hookup Reducers To Types ------------- */
 
@@ -49,7 +49,7 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.LOGIN_REQUEST]: request,
   [Types.LOGIN_SUCCESS]: success,
   [Types.LOGIN_FAILURE]: failure,
-  [Types.LOGOUT]: logout
+  [Types.LOG_OUT]: logOut
 })
 
 /* ------------- Selectors ------------- */

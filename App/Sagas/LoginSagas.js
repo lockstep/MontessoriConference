@@ -26,3 +26,7 @@ export function * login (api, { email, password }) {
 export function * loginSuccess (api, { id, uid, client, accessToken, expiry }) {
   yield call(api.saveCredentials, id, uid, client, accessToken, expiry);
 }
+
+export function * logOut (api) {
+  yield call(api.logOut);
+}

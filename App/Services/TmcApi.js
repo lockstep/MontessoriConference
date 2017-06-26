@@ -7,10 +7,10 @@ const getFilename = (path) => {
   return splitFilenameArray[splitFilenameArray.length - 1];
 }
 
-// const BASE_URL = __DEV__ ?
-//   'http://0.0.0.0:3000' : 'https://www.themontessoricompany.com'
+const BASE_URL = __DEV__ ?
+  'http://0.0.0.0:3000' : 'https://www.themontessoricompany.com'
 // const BASE_URL = 'https://www.themontessoricompany.com'
-const BASE_URL = 'https://themontessoricompany-staging.herokuapp.com'
+// const BASE_URL = 'https://themontessoricompany-staging.herokuapp.com'
 
 // our "constructor"
 const create = (baseURL = BASE_URL) => {
@@ -52,6 +52,7 @@ const create = (baseURL = BASE_URL) => {
   // way at this level.
   //
   const login = (email, password) => api.post('/api/v1/users/sign_in', {email, password})
+  const logOut = () => api.delete('/api/v1/users/sign_out')
   const getProfiles = (page, searchParams) => {
     return api.get('/directory', Object.assign({ page }, searchParams))
   }
@@ -92,6 +93,7 @@ const create = (baseURL = BASE_URL) => {
   return {
     // a list of the API functions from step 2
     login,
+    logOut,
     saveCredentials,
     getProfiles,
     sendMessage,
