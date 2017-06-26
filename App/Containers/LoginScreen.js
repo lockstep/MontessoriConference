@@ -14,10 +14,12 @@ import {
 import { connect } from 'react-redux'
 import Styles from './Styles/LoginScreenStyles'
 import {Images, Metrics} from '../Themes'
-import LoginActions from '../Redux/LoginRedux'
+import LoginActions, { isLoggedIn } from '../Redux/LoginRedux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 import I18n from 'react-native-i18n'
 import RoundedButton from '../Components/RoundedButton'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import AlertMessage from './AlertMessage'
 
 type LoginScreenProps = {
   dispatch: () => any,
@@ -38,7 +40,6 @@ class LoginScreen extends React.Component {
     }
   }
 
-  isAttempting: boolean
   keyboardDidShowListener: Object
   keyboardDidHideListener: Object
 
@@ -50,13 +51,10 @@ class LoginScreen extends React.Component {
       visibleHeight: Metrics.screenHeight,
       topLogo: { width: Metrics.screenWidth }
     }
-    this.isAttempting = false
   }
 
   componentWillReceiveProps (newProps) {
-    this.forceUpdate()
-    // Did the login attempt complete?
-    if (this.isAttempting && !newProps.fetching) {
+    if (newProps.loggedIn) {
       NavigationActions.pop()
     }
   }
@@ -93,10 +91,17 @@ class LoginScreen extends React.Component {
   }
 
   handlePressLogin = () => {
-    const { username, password } = this.state
-    this.isAttempting = true
+    if (this.props.fetching == true) return;
     // attempt a login - a saga is listening to pick it up from here.
+    const { username, password } = this.state
     this.props.attemptLogin(username, password)
+  }
+
+  handlePressCancel = () => {
+    if (this.props.fetching == true) {
+      // do something to clear the login request
+    }
+    NavigationActions.pop()
   }
 
   handleChangeUsername = (text) => {
@@ -114,6 +119,7 @@ class LoginScreen extends React.Component {
     const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
     return (
       <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: this.state.visibleHeight}]} keyboardShouldPersistTaps="always">
+        <AlertMessage />
         <Text style={Styles.sectionTitle}>
           Welcome! Sign in below:
         </Text>
@@ -154,11 +160,11 @@ class LoginScreen extends React.Component {
           </View>
 
           <View style={[Styles.row]}>
-            <RoundedButton onPress={this.handlePressLogin} alternateStyle="darkButton">
+            <RoundedButton onPress={this.handlePressLogin} alternateStyle="darkButton" busy={this.props.fetching}>
               { I18n.t('signIn') }
             </RoundedButton>
             <RoundedButton onPress={NavigationActions.pop} alternateStyle="darkButton">
-            { I18n.t('cancel') }
+              { I18n.t('cancel') }
             </RoundedButton>
           </View>
         </View>
@@ -170,8 +176,10 @@ class LoginScreen extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state.login.fetching)
   return {
-    fetching: state.login.fetching
+    fetching: state.login.fetching,
+    loggedIn: isLoggedIn(state.login)
   }
 }
 

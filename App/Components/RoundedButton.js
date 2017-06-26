@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { TouchableOpacity, Text } from 'react-native'
 import styles from './Styles/RoundedButtonStyles'
 import ExamplesRegistry from '../Services/ExamplesRegistry'
+import Spinner from './Spinner'
 
 // Example
 ExamplesRegistry.addComponentExample('Rounded Button', () =>
@@ -17,7 +18,7 @@ export default class RoundedButton extends React.Component {
     text: PropTypes.string,
     children: PropTypes.string,
     navigator: PropTypes.object,
-    alternateStyle: PropTypes.string,
+    alternateStyle: PropTypes.string
   }
 
   getText () {
@@ -26,9 +27,11 @@ export default class RoundedButton extends React.Component {
   }
 
   render () {
+    const message = (this.props.busy) ? <Spinner /> : <Text style={styles.buttonText}>{this.getText()}</Text>
+
     return (
       <TouchableOpacity style={styles[this.props.alternateStyle || 'button']} onPress={this.props.onPress}>
-        <Text style={styles.buttonText}>{this.getText()}</Text>
+        {message}
       </TouchableOpacity>
     )
   }

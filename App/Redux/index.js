@@ -13,7 +13,8 @@ export default () => {
     breakoutSessionList: require('./BreakoutSessionListRedux').reducer,
     breakoutSession: require('./BreakoutSessionRedux').reducer,
     commentList: require('./CommentListRedux').reducer,
-    conferencePhotos: require('./ConferencePhotosRedux').reducer
+    conferencePhotos: require('./ConferencePhotosRedux').reducer,
+    error: require('./ErrorRedux').reducer
   })
 
   return configureStore(rootReducer, rootSaga)

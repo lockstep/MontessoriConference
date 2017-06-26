@@ -6,7 +6,7 @@ import { ApplicationStyles } from '../../Themes/'
 
 export default StyleSheet.create({
   container: {
-    paddingTop: 70,
+    paddingTop: Metrics.doubleBaseMargin,
     backgroundColor: Colors.background
   },
   form: {
