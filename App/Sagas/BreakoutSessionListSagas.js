@@ -5,8 +5,6 @@ import BreakoutSessionListActions from '../Redux/BreakoutSessionListRedux'
 export function * getBreakoutSessionList (api, action) {
   const response = yield call(api.getBreakoutSessionList);
   if (response.ok) {
-    console.log('finish get breakoutSessionList');
-    console.log(response.data);
     yield put(BreakoutSessionListActions.breakoutSessionListSuccess(response.data.breakout_sessions));
 
     // yield put(BreakoutSessionListActions.breakoutSessionListSuccess([

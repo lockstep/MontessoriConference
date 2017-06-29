@@ -13,6 +13,7 @@ import { PrivateMessageTypes } from '../Redux/PrivateMessageRedux'
 import { BreakoutSessionListTypes } from '../Redux/BreakoutSessionListRedux'
 import { CommentListTypes } from '../Redux/CommentListRedux'
 import { ConferencePhotosTypes } from '../Redux/ConferencePhotosRedux'
+import { PhotoTypes } from '../Redux/PhotoRedux'
 
 /* ------------- Sagas ------------- */
 
@@ -50,11 +51,11 @@ export default function * root () {
     takeLatest(BreakoutSessionListTypes.BREAKOUT_SESSION_LIST_REQUEST, getBreakoutSessionList, api),
 
     takeLatest(CommentListTypes.SEND_COMMENT, sendComment, api),
-    takeLatest(CommentListTypes.SEND_COMMENT_WITH_IMAGE, sendCommentWithImage, api),
+    takeLatest(PhotoTypes.SEND_COMMENT_WITH_IMAGE_REQUEST, sendCommentWithImage, api),
     takeLatest(CommentListTypes.GET_COMMENTS, getComments, api),
 
     takeLatest(ConferencePhotosTypes.CONFERENCE_PHOTOS_REQUEST, getConferencePhotos, api),
     takeLatest(ConferencePhotosTypes.CONFERENCE_PHOTOS_RESET, resetConferencePhotos),
-    takeLatest(ConferencePhotosTypes.CREATE_CONFERENCE_PHOTO_REQUEST, createConferencePhoto, api)
+    takeLatest(PhotoTypes.CREATE_CONFERENCE_PHOTO_REQUEST, createConferencePhoto, api)
   ]
 }

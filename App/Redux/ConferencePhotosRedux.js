@@ -9,8 +9,7 @@ const { Types, Creators } = createActions({
   conferencePhotosRequest: ['page'],
   conferencePhotosSuccess: ['conferencePhotos'],
   conferencePhotosFailure: ['error'],
-  conferencePhotosReset: null,
-  createConferencePhotoRequest: ['imagePath']
+  conferencePhotosReset: null
 })
 
 export const ConferencePhotosTypes = Types

@@ -1,5 +1,6 @@
 import { call, put } from 'redux-saga/effects'
 import ConferencePhotosActions from '../Redux/ConferencePhotosRedux'
+import PhotoActions from '../Redux/PhotoRedux'
 import S3Api from '../Services/S3Api'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 
@@ -29,28 +30,31 @@ const getFilename = (path) => {
 }
 
 export function * createConferencePhoto (api, { imagePath }) {
+  console.log('create conference photo')
   // get S3 credentials
   const contentType = mime.lookup(imagePath);
   const filename = getFilename(imagePath);
 
   let response = yield call(api.getAwsCredentials, filename, contentType);
   if (response.ok) {
-    // console.log('get credentials ok', response.data)
+    console.log('get credentials ok', response.data)
     const { credentials } = response.data;
     const s3api = S3Api.create(credentials.endpoint);
     response = yield call(s3api.storeImageToS3, credentials, filename, contentType, imagePath);
 
     if (response.ok) {
-      // console.log('store image success', response)
+      console.log('store image success', response)
       response = yield call(api.createConferencePhoto, credentials.key);
       if (response.ok) {
         NavigationActions.pop();
-        yield put(ConferencePhotosActions.conferencePhotosReset());
+        yield put(PhotoActions.createConferencePhotoSuccess());
+        yield put(ConferencePhotosActions.conferencePhotosRequest());
       }
     }
   }
 
   if (!response.ok) {
-    yield put(ConferencePhotosActions.createConferencePhotoFailure('error'));
+    console.log('failure', response)
+    yield put(PhotoActions.createConferencePhotoFailure('error'));
   }
 }

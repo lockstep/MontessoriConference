@@ -22,6 +22,19 @@ export default StyleSheet.create({
   },
   confirmImage: {
     flex: 1
+  },
+  uploadingContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    backgroundColor: 'rgba(0,0,0,0.5)'
+  },
+  uploading: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 })
 

@@ -32,7 +32,6 @@ export const request = (state: Object, action: Object) => {
 
 // we've successfully retrieved breakout sessions
 export const success = (state: Object, action: Object) => {
-  console.log('success', action);
   const { breakoutSessionList } = action;
   return state.merge({
     fetching: false, error: null, breakoutSessionList

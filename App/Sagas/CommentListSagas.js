@@ -1,5 +1,6 @@
 import { call, put } from 'redux-saga/effects'
 import CommentListActions from '../Redux/CommentListRedux'
+import PhotoActions from '../Redux/PhotoRedux'
 import S3Api from '../Services/S3Api'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 
@@ -25,8 +26,6 @@ export function * sendComment (api, { breakoutSessionId, comment }) {
 }
 
 export function * getComments (api, { breakoutSessionId }) {
-  console.log('SAGA: getComments', breakoutSessionId);
-
   const response = yield call(api.getComments, breakoutSessionId);
   if (response.ok) {
     yield put(CommentListActions.getCommentsSuccess(response.data.comments));
@@ -57,13 +56,14 @@ export function * sendCommentWithImage (api, { breakoutSessionId, imagePath }) {
       response = yield call(api.createCommentWithImage, breakoutSessionId, credentials.key);
       if (response.ok) {
         NavigationActions.pop();
+        yield put(PhotoActions.sendCommentWithImageSuccess());
         yield put(CommentListActions.getComments(breakoutSessionId));
       }
     }
   }
 
   if (!response.ok) {
-    yield put(CommentListActions.sendCommentFailure('error'));
+    yield put(PhotoActions.sendCommentWithImageFailure('error'));
   }
 }
 

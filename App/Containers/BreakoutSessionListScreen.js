@@ -33,9 +33,7 @@ class BreakoutSessionsScreen extends React.Component {
   }
 
   componentWillReceiveProps (newProps) {
-    console.log('property changed', newProps)
     if (newProps.breakoutSessions) {
-      console.log('reset breakout sessions')
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(newProps.breakoutSessions)
       })

@@ -36,7 +36,6 @@ class BreakoutSessionScreen extends React.Component {
   }
 
   _getBreakoutSessionDataAsync = async () => {
-    console.log('get breakout session');
     this.props.loadBreakoutSession(this.props.breakoutSessionId, this.props.breakoutSessionList)
     this.props.getComments(this.props.breakoutSessionId)
   }
@@ -56,7 +55,6 @@ class BreakoutSessionScreen extends React.Component {
   }
 
   handleSendComment() {
-    console.log('should send comment: ' + this.state.comment);
     // Calling a service to send comment
     this.props.sendComment(this.props.breakoutSessionId, this.state.comment);
 
@@ -75,7 +73,7 @@ class BreakoutSessionScreen extends React.Component {
         <ScrollView style={styles.sessionContainer}>
           <Text style={styles.nameTitle}>{name}</Text>
           { organizers.map(organizer => {
-            return <ProfileTile { ...organizer }/>
+            return <ProfileTile { ...organizer } key={'organizer-' + organizer.id}/>
           })}
           <View style={styles.informationContainerWrapper}>
             <View style={styles.informationContainer}>

@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { Text, View, TouchableOpacity, Image } from 'react-native';
 import { Actions as NavigationActions } from 'react-native-router-flux';
 import { Images } from '../Themes'
-import CommentListActions from '../Redux/CommentListRedux'
-import ConferencePhotosActions from '../Redux/ConferencePhotosRedux'
+import PhotoActions, { photoState } from '../Redux/PhotoRedux'
+import Spinner from '../Components/Spinner'
 
 import styles from './Styles/PictureConfirmScreenStyle';
 
@@ -28,6 +28,7 @@ class PictureConfirmScreen extends Component {
   }
 
   render() {
+    let { isUploading } = this.props;
     return (
       <View style={styles.mainContainer}>
         <View style={styles.confirmBar}>
@@ -39,19 +40,28 @@ class PictureConfirmScreen extends Component {
           </TouchableOpacity>
         </View>
         <Image source={{uri: this.props.image, isStatic: true}} style={styles.confirmImage} />
+        { isUploading &&
+          <View style={styles.uploadingContainer}>
+            <View style={styles.uploading}>
+              <Spinner />
+            </View>
+          </View>
+        }
       </View>
     )
   }
 }
 
 const mapStateToProps = (state) => {
-  return {}
+  return {
+    isUploading: photoState(state).uploading,
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    sendCommentWithImage: (breakoutSessionId, imagePath) => dispatch(CommentListActions.sendCommentWithImage(breakoutSessionId, imagePath)),
-    createConferencePhoto: (imagePath) => dispatch(ConferencePhotosActions.createConferencePhotoRequest(imagePath))
+    sendCommentWithImage: (breakoutSessionId, imagePath) => dispatch(PhotoActions.sendCommentWithImageRequest(breakoutSessionId, imagePath)),
+    createConferencePhoto: (imagePath) => dispatch(PhotoActions.createConferencePhotoRequest(imagePath))
   }
 }
 

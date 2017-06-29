@@ -14,9 +14,11 @@ export function * login (api, { email, password }) {
     const response = yield call(api.login, email, password)
 
     if (response.ok) {
+      const { id } = response.data.user
       const { uid, client, expiry } = response.headers
+      console.log(uid)
       const accessToken = response.headers['access-token']
-      yield put(LoginActions.loginSuccess(uid, client, accessToken, expiry))
+      yield put(LoginActions.loginSuccess(id, uid, client, accessToken, expiry))
       yield put(ErrorActions.clearError())
     } else {
       let type = response.problem;
@@ -34,7 +36,7 @@ export function * login (api, { email, password }) {
 }
 
 export function * loginSuccess (api, { id, uid, client, accessToken, expiry }) {
-  yield call(api.saveCredentials, id, uid, client, accessToken, expiry);
+  yield call(api.saveCredentials, uid, client, accessToken, expiry);
 }
 
 export function * logOut (api) {

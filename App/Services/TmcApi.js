@@ -56,7 +56,7 @@ const create = (baseURL = BASE_URL) => {
   const getProfiles = (page, searchParams) => {
     return api.get('/directory', Object.assign({ page }, searchParams))
   }
-  const saveCredentials = (id, uid, client, accessToken, expiry) => {
+  const saveCredentials = (uid, client, accessToken, expiry) => {
     console.log('saveCredentials', uid, client, accessToken)
     api.addRequestTransform(request => {
       request.headers['access-token'] = accessToken;

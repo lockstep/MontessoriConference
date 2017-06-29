@@ -6,7 +6,7 @@ import { Actions as NavigationActions } from 'react-native-router-flux'
 export default class ProfileTile extends React.Component {
 
   static propTypes = {
-    id: PropTypes.string,
+    id: PropTypes.number,
     avatar_url_small: PropTypes.string,
     full_name: PropTypes.string,
     position_with_organization: PropTypes.string,
