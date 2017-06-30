@@ -53,6 +53,7 @@ const create = (baseURL = BASE_URL) => {
   //
   const login = (email, password) => api.post('/api/v1/users/sign_in', {email, password})
   const logOut = () => api.delete('/api/v1/users/sign_out')
+  const register = (email, password, confirmation) => api.post('/api/v1/users', {email, password, password_confirmation: confirmation})
   const getProfiles = (page, searchParams) => {
     return api.get('/directory', Object.assign({ page }, searchParams))
   }
@@ -94,6 +95,7 @@ const create = (baseURL = BASE_URL) => {
     // a list of the API functions from step 2
     login,
     logOut,
+    register,
     saveCredentials,
     getProfiles,
     sendMessage,

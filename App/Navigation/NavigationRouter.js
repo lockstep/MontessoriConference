@@ -11,6 +11,7 @@ import DirectoryProfileScreen from '../Containers/DirectoryProfileScreen';
 import BreakoutSessionListScreen from '../Containers/BreakoutSessionListScreen';
 import ConferencePhotosScreen from '../Containers/ConferencePhotosScreen';
 import BreakoutSessionScreen from '../Containers/BreakoutSessionScreen';
+import RegisterScreen from '../Containers/RegisterScreen';
 import LoginScreen from '../Containers/LoginScreen';
 import AboutUsScreen from '../Containers/AboutUsScreen';
 import CameraScreen from '../Containers/CameraScreen';
@@ -32,6 +33,7 @@ class NavigationRouter extends Component {
             <Scene key='conferencePhotos' component={ConferencePhotosScreen} title='Photo Feed' />
             <Scene key='breakoutSession' component={BreakoutSessionScreen} />
             <Scene key='directoryProfile' component={DirectoryProfileScreen} />
+            <Scene key='register' component={RegisterScreen} title='Register' hideNavBar />
             <Scene key='login' component={LoginScreen} title='Login' hideNavBar />
             <Scene key='aboutUs' component={AboutUsScreen} title='About' />
             <Scene key='camera' component={CameraScreen} hideNavBar />
