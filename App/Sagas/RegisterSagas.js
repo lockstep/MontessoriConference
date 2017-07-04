@@ -23,10 +23,6 @@ export function * register (api, { email, password, confirmation }) {
 
     if (response.ok) {
       console.log(response)
-      // const { id } = response.data.user
-      // const { uid, client, expiry } = response.headers
-      // const accessToken = response.headers['access-token']
-      // yield put(LoginActions.loginSuccess(id, uid, client, accessToken, expiry))
       yield put(RegisterActions.registerSuccess())
       yield put(LoginActions.loginRequest(email, password))
       yield put(ErrorActions.clearError())
@@ -36,9 +32,12 @@ export function * register (api, { email, password, confirmation }) {
       if (type == "NETWORK_ERROR") {
         message = 'Network errors'
       } else {
+        console.log(response);
         let errorMessage = [];
-        for (var key in response.data.meta.errors) {
-          errorMessage.push(`${key} ${response.data.meta.errors[key]}`)
+        if (response.data) {
+          for (var key in response.data.meta.errors) {
+            errorMessage.push(`${key} ${response.data.meta.errors[key]}`)
+          }
         }
         message = errorMessage.join(', ')
       }
