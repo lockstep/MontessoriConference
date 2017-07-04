@@ -8,6 +8,7 @@ import DebugConfig from '../Config/DebugConfig'
 import { StartupTypes } from '../Redux/StartupRedux'
 import { DirectoryTypes } from '../Redux/DirectoryRedux'
 import { LoginTypes } from '../Redux/LoginRedux'
+import { RegisterTypes } from '../Redux/RegisterRedux'
 import { OpenScreenTypes } from '../Redux/OpenScreenRedux'
 import { PrivateMessageTypes } from '../Redux/PrivateMessageRedux'
 import { BreakoutSessionListTypes } from '../Redux/BreakoutSessionListRedux'
@@ -19,6 +20,7 @@ import { PhotoTypes } from '../Redux/PhotoRedux'
 
 import { startup } from './StartupSagas'
 import { login, loginSuccess } from './LoginSagas'
+import { register } from './RegisterSagas'
 import { getProfiles, resetProfiles } from './DirectorySagas'
 import { openScreen } from './OpenScreenSagas'
 import { sendMessage, getMessages } from './PrivateMessageSagas'
@@ -40,6 +42,7 @@ export default function * root () {
     takeLatest(StartupTypes.STARTUP, startup, api),
     takeLatest(LoginTypes.LOGIN_REQUEST, login, api),
     takeLatest(LoginTypes.LOGIN_SUCCESS, loginSuccess, api),
+    takeLatest(RegisterTypes.REGISTER_REQUEST, register, api),
     takeLatest(OpenScreenTypes.OPEN_SCREEN, openScreen),
 
     takeLatest(DirectoryTypes.DIRECTORY_REQUEST, getProfiles),

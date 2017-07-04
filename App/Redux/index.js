@@ -6,6 +6,7 @@ export default () => {
   /* ------------- Assemble The Reducers ------------- */
   const rootReducer = combineReducers({
     login: require('./LoginRedux').reducer,
+    register: require('./RegisterRedux').reducer,
     search: require('./SearchRedux').reducer,
     directory: require('./DirectoryRedux').reducer,
     profile: require('./ProfileRedux').reducer,
