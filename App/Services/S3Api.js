@@ -43,7 +43,7 @@ const create = (baseURL) => {
   // way at this level.
   //
   const storeImageToS3 = (credentials, filename, contentType, imagePath) => {
-    console.log(`file:///${imagePath}`);
+    console.log(`${imagePath}`);
 
     const data = new FormData();
     data.append("AWSAccessKeyId", credentials.AWSAccessKeyId);
@@ -53,7 +53,7 @@ const create = (baseURL) => {
     data.append("key", credentials.key);
     data.append("Content-Type", contentType);
     data.append("file", {
-      uri: `file:///${imagePath}`,
+      uri: `${imagePath}`,
       name: filename,
       type: contentType
     });
