@@ -16,6 +16,7 @@ import Styles from './Styles/RegisterScreenStyles'
 import {Images, Metrics} from '../Themes'
 import RegisterActions from '../Redux/RegisterRedux'
 import LoginActions, { isLoggedIn } from '../Redux/LoginRedux'
+import ErrorActions from '../Redux/ErrorRedux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 import I18n from 'react-native-i18n'
 import RoundedButton from '../Components/RoundedButton'
@@ -95,6 +96,7 @@ class RegisterScreen extends React.Component {
   handlePressRegister = () => {
     if (this.props.fetching == true) return;
     // attempt a login - a saga is listening to pick it up from here.
+    this.props.clearError()
     const { username, password, confirmation } = this.state
     this.props.attemptRegister(username, password, confirmation)
   }
@@ -104,6 +106,7 @@ class RegisterScreen extends React.Component {
       // do something to clear the login request
     }
     NavigationActions.pop()
+    this.props.clearError();
   }
 
   handleChangeUsername = (text) => {
@@ -127,7 +130,7 @@ class RegisterScreen extends React.Component {
       <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: this.state.visibleHeight}]} keyboardShouldPersistTaps="always">
         <AlertMessage />
         <Text style={Styles.sectionTitle}>
-          Welcome! Sign in below:
+          Welcome! Register below:
         </Text>
         <View style={Styles.form}>
           <View style={Styles.row}>
@@ -208,7 +211,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptRegister: (username, password, confirmation) => dispatch(RegisterActions.registerRequest(username, password, confirmation))
+    attemptRegister: (username, password, confirmation) => dispatch(RegisterActions.registerRequest(username, password, confirmation)),
+    clearError: () => dispatch(ErrorActions.clearError())
   }
 }
 
