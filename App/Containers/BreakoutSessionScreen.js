@@ -11,6 +11,7 @@ import BreakoutSessionActions, { breakoutSessionState } from '../Redux/BreakoutS
 import { breakoutSessionListState } from '../Redux/BreakoutSessionListRedux'
 import { isLoggedIn } from '../Redux/LoginRedux'
 import CommentListActions, { commentListState } from '../Redux/CommentListRedux'
+import ErrorActions from '../Redux/ErrorRedux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import RoundedButton from '../Components/RoundedButton'
@@ -18,6 +19,7 @@ import Input from '../Components/Input';
 import Button from '../Components/Button';
 import Comments from '../Components/Comments';
 import ProfileTile from '../Components/ProfileTile';
+import AlertMessage from './AlertMessage';
 
 class BreakoutSessionScreen extends React.Component {
 
@@ -27,6 +29,10 @@ class BreakoutSessionScreen extends React.Component {
 
   async componentWillMount() {
     this._getBreakoutSessionDataAsync();
+  }
+
+  async componentWillUnmount() {
+    this.props.clearError();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -67,10 +73,11 @@ class BreakoutSessionScreen extends React.Component {
       name, description, day, start_time, end_time, location_name, organizers
     } = this.props.breakoutSession;
 
-    const { loggedIn, comments } = this.props;
+    const { loggedIn, comments, commentsError } = this.props;
     return (
       <View style={styles.mainContainer}>
         <ScrollView style={styles.sessionContainer}>
+          <AlertMessage />
           <Text style={styles.nameTitle}>{name}</Text>
           { organizers.map(organizer => {
             return <ProfileTile { ...organizer } key={'organizer-' + organizer.id}/>
@@ -97,7 +104,7 @@ class BreakoutSessionScreen extends React.Component {
             </View>
           }
           <Text style={styles.commentTitle}>Discussion</Text>
-          <Comments comments={comments} />
+          <Comments comments={comments} commentsError={commentsError}/>
           { !loggedIn &&
             <View style={styles.section}>
               <RoundedButton onPress={NavigationActions.login} alternateStyle='darkButton'>
@@ -142,7 +149,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     loadBreakoutSession: (breakoutSessionId, breakoutSessionList) => dispatch(BreakoutSessionActions.breakoutSessionRequest(breakoutSessionId, breakoutSessionList)),
     sendComment: (breakoutSessionId, comment) => dispatch(CommentListActions.sendComment(breakoutSessionId, comment)),
-    getComments: (breakoutSessionId) => dispatch(CommentListActions.getComments(breakoutSessionId))
+    getComments: (breakoutSessionId) => dispatch(CommentListActions.getComments(breakoutSessionId)),
+    clearError: () => dispatch(ErrorActions.clearError())
   }
 }
 

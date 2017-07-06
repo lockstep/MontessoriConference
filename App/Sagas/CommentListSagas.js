@@ -1,6 +1,7 @@
 import { call, put } from 'redux-saga/effects'
 import CommentListActions from '../Redux/CommentListRedux'
 import PhotoActions from '../Redux/PhotoRedux'
+import ErrorActions from '../Redux/ErrorRedux'
 import S3Api from '../Services/S3Api'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 
@@ -19,8 +20,9 @@ export function * sendComment (api, { breakoutSessionId, comment }) {
       console.log('send comment success');
       yield put(CommentListActions.getComments(breakoutSessionId));
     } else {
-      console.log('error');
+      let message = 'You need to be listed in the Montessori Directory in order to leave a comment.'
       yield put(CommentListActions.sendCommentFailure('error'));
+      yield put(ErrorActions.errorOccur(response.type, message));
     }
   }
 }
