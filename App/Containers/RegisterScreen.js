@@ -34,7 +34,7 @@ class RegisterScreen extends React.Component {
   props: RegisterScreenProps
 
   state: {
-    username: string,
+    email: string,
     password: string,
     confirmation: string,
     visibleHeight: number,
@@ -49,7 +49,7 @@ class RegisterScreen extends React.Component {
   constructor (props: RegisterScreenProps) {
     super(props)
     this.state = {
-      username: '',
+      email: '',
       password: '',
       visibleHeight: Metrics.screenHeight,
       topLogo: { width: Metrics.screenWidth }
@@ -97,8 +97,8 @@ class RegisterScreen extends React.Component {
     if (this.props.fetching == true) return;
     // attempt a login - a saga is listening to pick it up from here.
     this.props.clearError()
-    const { username, password, confirmation } = this.state
-    this.props.attemptRegister(username, password, confirmation)
+    const { email, password, confirmation } = this.state
+    this.props.attemptRegister(email, password, confirmation)
   }
 
   handlePressCancel = () => {
@@ -109,8 +109,8 @@ class RegisterScreen extends React.Component {
     this.props.clearError();
   }
 
-  handleChangeUsername = (text) => {
-    this.setState({ username: text })
+  handleChangeEmail = (text) => {
+    this.setState({ email: text })
   }
 
   handleChangePassword = (text) => {
@@ -122,7 +122,7 @@ class RegisterScreen extends React.Component {
   }
 
   render () {
-    const { username, password, confirmation } = this.state
+    const { email, password, confirmation } = this.state
     const { fetching } = this.props
     const editable = !fetching
     const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
@@ -134,20 +134,20 @@ class RegisterScreen extends React.Component {
         </Text>
         <View style={Styles.form}>
           <View style={Styles.row}>
-            <Text style={Styles.rowLabel}>{I18n.t('username')}</Text>
+            <Text style={Styles.rowLabel}>{I18n.t('email')}</Text>
             <TextInput
-              ref='username'
+              ref='email'
               style={textInputStyle}
-              value={username}
+              value={email}
               editable={editable}
               keyboardType='default'
               returnKeyType='next'
               autoCapitalize='none'
               autoCorrect={false}
-              onChangeText={this.handleChangeUsername}
+              onChangeText={this.handleChangeEmail}
               underlineColorAndroid='transparent'
               onSubmitEditing={() => this.refs.password.focus()}
-              placeholder={I18n.t('username')} />
+              placeholder={I18n.t('email')} />
           </View>
 
           <View style={Styles.row}>
@@ -169,7 +169,7 @@ class RegisterScreen extends React.Component {
           </View>
 
           <View style={Styles.row}>
-            <Text style={Styles.rowLabel}>{I18n.t('password')}</Text>
+            <Text style={Styles.rowLabel}>{I18n.t('password_confirmation')}</Text>
             <TextInput
               ref='confirmation'
               style={textInputStyle}
@@ -183,7 +183,7 @@ class RegisterScreen extends React.Component {
               onChangeText={this.handleChangeconfirmation}
               underlineColorAndroid='transparent'
               onSubmitEditing={this.handlePressRegister}
-              placeholder={I18n.t('password')} />
+              placeholder={I18n.t('password_confirmation')} />
           </View>
 
           <View style={[Styles.row]}>
@@ -211,7 +211,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptRegister: (username, password, confirmation) => dispatch(RegisterActions.registerRequest(username, password, confirmation)),
+    attemptRegister: (email, password, confirmation) => dispatch(RegisterActions.registerRequest(email, password, confirmation)),
     clearError: () => dispatch(ErrorActions.clearError())
   }
 }

@@ -11,8 +11,10 @@
    "rni18n": "RN i18n",
    "igniteGenerated": "Ignite Generate Screens",
    "forgotPassword": "Forgot Password",
+   "email": "Email",
    "username": "Username",
    "password": "Password",
+   "password_confirmation": "Password Confirmation",
    "cancel": "Cancel",
    "welcome": "Welcome",
    "login": "Login",
@@ -24,5 +26,13 @@
    "deviceDetails": "Device Details",
    "noItems": "No Items",
    "search": "Search",
-   "searchDirectory": "Search Directory"
+   "searchDirectory": "Search Directory",
+   "first_name": "First Name",
+   "last_name": "Last Name",
+   "position": "Current Position",
+   "organization": "Organization",
+   "city": "City",
+   "state": "State",
+   "country": "Country",
+   "short_bio": "Short Bio"
 }

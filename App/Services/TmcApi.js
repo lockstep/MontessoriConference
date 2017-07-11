@@ -7,10 +7,10 @@ const getFilename = (path) => {
   return splitFilenameArray[splitFilenameArray.length - 1];
 }
 
-// const BASE_URL = __DEV__ ?
-//  'http://0.0.0.0:3000' : 'https://www.themontessoricompany.com'
+const BASE_URL = __DEV__ ?
+ 'http://0.0.0.0:3000' : 'https://www.themontessoricompany.com'
 // const BASE_URL = 'https://www.themontessoricompany.com'
-const BASE_URL = 'https://themontessoricompany-staging.herokuapp.com'
+// const BASE_URL = 'https://themontessoricompany-staging.herokuapp.com'
 
 // our "constructor"
 const create = (baseURL = BASE_URL) => {
