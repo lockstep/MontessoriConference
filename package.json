@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "apisauce": "0.11.0",
+    "country-data": "0.0.31",
     "format-json": "1.0.3",
     "lodash": "4.17.4",
     "querystringify": "1.0.0",

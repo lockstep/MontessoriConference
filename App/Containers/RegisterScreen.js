@@ -24,6 +24,8 @@ import RoundedButton from '../Components/RoundedButton'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AlertMessage from './AlertMessage'
 import CheckBox from 'react-native-checkbox-heaven'
+import { lookup } from 'country-data'
+import _ from 'lodash'
 
 type RegisterScreenProps = {
   dispatch: () => any,
@@ -173,6 +175,11 @@ class RegisterScreen extends React.Component {
     const { fetching } = this.props
     const editable = !fetching
     const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
+    const countries = lookup.countries({status: 'assigned'})
+    const countryOptions = _.sortBy(countries, ['name']).map((country) => {
+      console.log(country)
+      return <Picker.Item key={country.alpha2} label={country.name} value={country.alpha2} />
+    })
     return (
       <View style={Styles.mainContainer}>
         <AlertMessage />
@@ -345,19 +352,11 @@ class RegisterScreen extends React.Component {
 
             <View style={Styles.row}>
               <Text style={Styles.rowLabel}>{I18n.t('country')}</Text>
-              <TextInput
-                ref='country'
-                style={textInputStyle}
-                value={country}
-                editable={editable}
-                keyboardType='default'
-                returnKeyType='next'
-                autoCapitalize='none'
-                autoCorrect={false}
-                onChangeText={this.handleChangeCountry}
-                underlineColorAndroid='transparent'
-                onSubmitEditing={this.handlePressUpdate}
-                placeholder={I18n.t('country')} />
+              <Picker
+                selectedValue={country}
+                onValueChange={this.handleChangeCountry}>
+                { countryOptions }
+              </Picker>
             </View>
 
             <View style={Styles.row}>
