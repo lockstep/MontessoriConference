@@ -89,9 +89,6 @@ class DrawerContent extends Component {
           <DrawerButton text='Log In' onPress={this.handleLogin} />
         }
         { loggedIn &&
-          <DrawerButton text='My Profile' onPress={this.handleMyProfile} />
-        }
-        { loggedIn &&
           <DrawerButton text='Log Out' onPress={this.handleLogOut} />
         }
       </ScrollView>

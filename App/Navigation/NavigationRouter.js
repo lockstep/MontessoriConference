@@ -16,7 +16,6 @@ import LoginScreen from '../Containers/LoginScreen';
 import AboutUsScreen from '../Containers/AboutUsScreen';
 import CameraScreen from '../Containers/CameraScreen';
 import PictureConfirmScreen from '../Containers/PictureConfirmScreen';
-import MyProfileScreen from '../Containers/MyProfileScreen';
 
 /* **************************
 * Documentation: https://github.com/aksonov/react-native-router-flux
@@ -39,7 +38,6 @@ class NavigationRouter extends Component {
             <Scene key='aboutUs' component={AboutUsScreen} title='About' />
             <Scene key='camera' component={CameraScreen} hideNavBar />
             <Scene key='pictureConfirm' component={PictureConfirmScreen} hideNavBar />
-            <Scene key='myProfile' component={MyProfileScreen} title='My Profile' />
           </Scene>
         </Scene>
       </Router>

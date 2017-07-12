@@ -15,7 +15,6 @@ import { BreakoutSessionListTypes } from '../Redux/BreakoutSessionListRedux'
 import { CommentListTypes } from '../Redux/CommentListRedux'
 import { ConferencePhotosTypes } from '../Redux/ConferencePhotosRedux'
 import { PhotoTypes } from '../Redux/PhotoRedux'
-import { MyProfileTypes } from '../Redux/MyProfileRedux'
 
 /* ------------- Sagas ------------- */
 
@@ -28,7 +27,6 @@ import { sendMessage, getMessages } from './PrivateMessageSagas'
 import { getBreakoutSessionList } from './BreakoutSessionListSagas'
 import { sendComment, sendCommentWithImage, getComments } from './CommentListSagas'
 import { getConferencePhotos, resetConferencePhotos, createConferencePhoto } from './ConferencePhotosSagas'
-import { getMyProfile } from './MyProfileSagas'
 
 /* ------------- API ------------- */
 
@@ -63,6 +61,5 @@ export default function * root () {
     takeLatest(ConferencePhotosTypes.CONFERENCE_PHOTOS_RESET, resetConferencePhotos),
     takeLatest(PhotoTypes.CREATE_CONFERENCE_PHOTO_REQUEST, createConferencePhoto, api),
 
-    takeLatest(MyProfileTypes.MY_PROFILE_REQUEST, getMyProfile, api)
   ]
 }

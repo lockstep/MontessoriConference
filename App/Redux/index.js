@@ -16,8 +16,7 @@ export default () => {
     commentList: require('./CommentListRedux').reducer,
     conferencePhotos: require('./ConferencePhotosRedux').reducer,
     error: require('./ErrorRedux').reducer,
-    photo: require('./PhotoRedux').reducer,
-    myProfile: require('./MyProfileRedux').reducer
+    photo: require('./PhotoRedux').reducer
   })
 
   return configureStore(rootReducer, rootSaga)
