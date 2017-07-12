@@ -53,7 +53,13 @@ const create = (baseURL = BASE_URL) => {
   //
   const login = (email, password) => api.post('/api/v1/users/sign_in', {email, password})
   const logOut = () => api.delete('/api/v1/users/sign_out')
-  const register = (email, password, confirmation) => api.post('/api/v1/users', {email, password, password_confirmation: confirmation})
+  const register = (email, password, password_confirmation, first_name, last_name, position, organization_name, address_city, address_state, address_country, opted_in_to_public_directory) => {
+    return api.post('/api/v1/users', {
+      email, password, password_confirmation, first_name, last_name,
+      position, organization_name, address_city, address_state, address_country,
+      opted_in_to_public_directory
+    })
+  }
   const getProfiles = (page, searchParams) => {
     return api.get('/directory', Object.assign({ page }, searchParams))
   }

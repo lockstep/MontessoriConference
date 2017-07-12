@@ -55,6 +55,16 @@ class DrawerContent extends Component {
     NavigationActions.register()
   }
 
+  handleLogin = () => {
+    this.toggleDrawer()
+    NavigationActions.login()
+  }
+
+  handleMyProfile = () => {
+    this.toggleDrawer()
+    NavigationActions.myProfile()
+  }
+
   handleLogOut = () => {
     this.toggleDrawer()
     this.props.attemptLogOut()
@@ -73,6 +83,13 @@ class DrawerContent extends Component {
         {
           !loggedIn &&
           <DrawerButton text='Register' onPress={this.handleRegister} />
+        }
+        {
+          !loggedIn &&
+          <DrawerButton text='Log In' onPress={this.handleLogin} />
+        }
+        { loggedIn &&
+          <DrawerButton text='My Profile' onPress={this.handleMyProfile} />
         }
         { loggedIn &&
           <DrawerButton text='Log Out' onPress={this.handleLogOut} />

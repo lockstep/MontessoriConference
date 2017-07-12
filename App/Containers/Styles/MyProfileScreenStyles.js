@@ -7,7 +7,7 @@ import { ApplicationStyles } from '../../Themes/'
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
   container: {
-    flex: 1,
+    paddingTop: Metrics.doubleBaseMargin,
     backgroundColor: Colors.background
   },
   form: {
@@ -53,17 +53,6 @@ export default StyleSheet.create({
   topLogo: {
     alignSelf: 'center',
     resizeMode: 'contain'
-  },
-  boxedText: {
-    fontSize: 14,
-    color: Colors.charcoal
-  },
-  noteText: {
-    fontSize: 12,
-    color: Colors.windowTint
-  },
-  registerBar: {
-    height: 65
   },
   sectionTitle: ApplicationStyles.centeredSectionTitle,
 })

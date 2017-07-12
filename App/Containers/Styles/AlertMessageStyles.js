@@ -5,7 +5,7 @@ export default {
   container: {
     justifyContent: 'center',
     backgroundColor: '#ed5b47',
-    flex: 1,
+    top: 0,
     flexDirection: 'row',
     paddingVertical: 10,
     paddingHorizontal: 20

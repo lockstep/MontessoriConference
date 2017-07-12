@@ -2,10 +2,11 @@ import { call, put } from 'redux-saga/effects'
 import LoginActions from '../Redux/LoginRedux'
 import RegisterActions from '../Redux/RegisterRedux'
 import ErrorActions from '../Redux/ErrorRedux'
+import _ from 'lodash'
 
 // attempts to register
-export function * register (api, { email, password, confirmation }) {
-  console.log('register', email, password, confirmation)
+export function * register (api, { user }) {
+  const { email, password, confirmation, firstName, lastName, position, organization, city, state, country, optedInToPublicDirectory } = user
   if (email === '' || password === '' || email === undefined || password === undefined) {
     let type = 'CLIENT_ERROR';
     let message = "Username or password can't be blank.";
@@ -18,8 +19,50 @@ export function * register (api, { email, password, confirmation }) {
 
     yield put(RegisterActions.registerFailure())
     yield put(ErrorActions.errorOccur(type, message))
+  } else if (firstName === '' || firstName === undefined) {
+    let type = 'CLIENT_ERROR';
+    let message = "First name can't be blank";
+
+    yield put(RegisterActions.registerFailure())
+    yield put(ErrorActions.errorOccur(type, message))
+  } else if (lastName === '' || lastName === undefined) {
+    let type = 'CLIENT_ERROR';
+    let message = "Last name can't be blank";
+
+    yield put(RegisterActions.registerFailure())
+    yield put(ErrorActions.errorOccur(type, message))
+  } else if (organization === '' || organization === undefined) {
+    let type = 'CLIENT_ERROR';
+    let message = "Organization can't be blank";
+
+    yield put(RegisterActions.registerFailure())
+    yield put(ErrorActions.errorOccur(type, message))
+  } else if (city === '' || city === undefined) {
+    let type = 'CLIENT_ERROR';
+    let message = "City can't be blank";
+
+    yield put(RegisterActions.registerFailure())
+    yield put(ErrorActions.errorOccur(type, message))
+  } else if (state === '' || state === undefined) {
+    let type = 'CLIENT_ERROR';
+    let message = "State can't be blank";
+
+    yield put(RegisterActions.registerFailure())
+    yield put(ErrorActions.errorOccur(type, message))
+  } else if (country === '' || country === undefined) {
+    let type = 'CLIENT_ERROR';
+    let message = "Country can't be blank";
+
+    yield put(RegisterActions.registerFailure())
+    yield put(ErrorActions.errorOccur(type, message))
+  } else if (optedInToPublicDirectory !== true) {
+    let type = 'CLIENT_ERROR';
+    let message = "Please allow your profile to be listed in The Montessori Directory"
+
+    yield put(RegisterActions.registerFailure())
+    yield put(ErrorActions.errorOccur(type, message))
   } else {
-    const response = yield call(api.register, email, password, confirmation)
+    const response = yield call(api.register, email, password, confirmation, firstName, lastName, position, organization, city, state, country, optedInToPublicDirectory)
 
     if (response.ok) {
       console.log(response)

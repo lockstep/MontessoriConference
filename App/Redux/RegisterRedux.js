@@ -6,7 +6,7 @@ import Immutable from 'seamless-immutable'
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  registerRequest: ['email', 'password', 'confirmation'],
+  registerRequest: ['user'],
   registerSuccess: ['id', 'uid', 'client', 'accessToken', 'expiry'],
   registerFailure: ['error']
 })

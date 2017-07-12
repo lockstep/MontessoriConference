@@ -27,12 +27,14 @@
    "noItems": "No Items",
    "search": "Search",
    "searchDirectory": "Search Directory",
-   "first_name": "First Name",
-   "last_name": "Last Name",
+   "firstName": "First Name",
+   "lastName": "Last Name",
    "position": "Current Position",
    "organization": "Organization",
    "city": "City",
    "state": "State",
    "country": "Country",
-   "short_bio": "Short Bio"
+   "short_bio": "Short Bio",
+   "optedInToPublicDirectory": "List my profile in The Montessori Directory",
+   "update": "Update"
 }
