@@ -76,8 +76,8 @@ class BreakoutSessionScreen extends React.Component {
     const { loggedIn, comments, commentsError } = this.props;
     return (
       <View style={styles.mainContainer}>
+        <AlertMessage />
         <ScrollView style={styles.sessionContainer}>
-          <AlertMessage />
           <Text style={styles.nameTitle}>{name}</Text>
           { organizers.map(organizer => {
             return <ProfileTile { ...organizer } key={'organizer-' + organizer.id}/>

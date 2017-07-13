@@ -59,6 +59,7 @@ export default function * root () {
 
     takeLatest(ConferencePhotosTypes.CONFERENCE_PHOTOS_REQUEST, getConferencePhotos, api),
     takeLatest(ConferencePhotosTypes.CONFERENCE_PHOTOS_RESET, resetConferencePhotos),
-    takeLatest(PhotoTypes.CREATE_CONFERENCE_PHOTO_REQUEST, createConferencePhoto, api)
+    takeLatest(PhotoTypes.CREATE_CONFERENCE_PHOTO_REQUEST, createConferencePhoto, api),
+
   ]
 }

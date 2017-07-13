@@ -6,6 +6,7 @@ import {
   ScrollView,
   Text,
   TextInput,
+  Picker,
   TouchableOpacity,
   Image,
   Keyboard,
@@ -22,6 +23,9 @@ import I18n from 'react-native-i18n'
 import RoundedButton from '../Components/RoundedButton'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AlertMessage from './AlertMessage'
+import CheckBox from 'react-native-checkbox-heaven'
+import { lookup } from 'country-data'
+import _ from 'lodash'
 
 type RegisterScreenProps = {
   dispatch: () => any,
@@ -34,9 +38,16 @@ class RegisterScreen extends React.Component {
   props: RegisterScreenProps
 
   state: {
-    username: string,
+    email: string,
     password: string,
     confirmation: string,
+    firstName: string,
+    lastName: string,
+    position: string,
+    organization: string,
+    city: string,
+    state: string,
+    optedInToPublicDirectory: boolean,
     visibleHeight: number,
     topLogo: {
       width: number
@@ -49,8 +60,15 @@ class RegisterScreen extends React.Component {
   constructor (props: RegisterScreenProps) {
     super(props)
     this.state = {
-      username: '',
+      email: '',
       password: '',
+      firstName: '',
+      lastName: '',
+      position: 'Other',
+      city: '',
+      state: '',
+      country: 'US',
+      optedInToPublicDirectory: false,
       visibleHeight: Metrics.screenHeight,
       topLogo: { width: Metrics.screenWidth }
     }
@@ -97,8 +115,7 @@ class RegisterScreen extends React.Component {
     if (this.props.fetching == true) return;
     // attempt a login - a saga is listening to pick it up from here.
     this.props.clearError()
-    const { username, password, confirmation } = this.state
-    this.props.attemptRegister(username, password, confirmation)
+    this.props.attemptRegister(this.state)
   }
 
   handlePressCancel = () => {
@@ -109,94 +126,260 @@ class RegisterScreen extends React.Component {
     this.props.clearError();
   }
 
-  handleChangeUsername = (text) => {
-    this.setState({ username: text })
+  handleChangeEmail = (text) => {
+    this.setState({ email: text })
   }
 
   handleChangePassword = (text) => {
     this.setState({ password: text })
   }
 
-  handleChangeconfirmation = (text) => {
+  handleChangeConfirmation = (text) => {
     this.setState({ confirmation: text })
   }
 
+  handleChangeFirstName = (text) => {
+    this.setState({ firstName: text })
+  }
+
+  handleChangeLastName = (text) => {
+    this.setState({ lastName: text })
+  }
+
+  handleChangePosition = (value, index) => {
+    this.setState({ position: value })
+  }
+
+  handleChangeOrganization = (text) => {
+    this.setState({ organization: text })
+  }
+
+  handleChangeCity = (text) => {
+    this.setState({ city: text })
+  }
+
+  handleChangeState = (text) => {
+    this.setState({ state: text })
+  }
+
+  handleChangeCountry = (text) => {
+    this.setState({ country: text })
+  }
+
+  handleChangeListInDirectory = (checked) => {
+    this.setState({ optedInToPublicDirectory: checked })
+  }
+
   render () {
-    const { username, password, confirmation } = this.state
+    const { email, password, confirmation, firstName, lastName, position, organization, city, state, country, optedInToPublicDirectory } = this.state
     const { fetching } = this.props
     const editable = !fetching
     const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
+    const countries = lookup.countries({status: 'assigned'})
+    const countryOptions = _.sortBy(countries, ['name']).map((country) => {
+      console.log(country)
+      return <Picker.Item key={country.alpha2} label={country.name} value={country.alpha2} />
+    })
     return (
-      <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: this.state.visibleHeight}]} keyboardShouldPersistTaps="always">
+      <View style={Styles.mainContainer}>
         <AlertMessage />
-        <Text style={Styles.sectionTitle}>
-          Welcome! Register below:
-        </Text>
-        <View style={Styles.form}>
-          <View style={Styles.row}>
-            <Text style={Styles.rowLabel}>{I18n.t('username')}</Text>
-            <TextInput
-              ref='username'
-              style={textInputStyle}
-              value={username}
-              editable={editable}
-              keyboardType='default'
-              returnKeyType='next'
-              autoCapitalize='none'
-              autoCorrect={false}
-              onChangeText={this.handleChangeUsername}
-              underlineColorAndroid='transparent'
-              onSubmitEditing={() => this.refs.password.focus()}
-              placeholder={I18n.t('username')} />
-          </View>
+        <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={[{height: this.state.visibleHeight}]} keyboardShouldPersistTaps="always">
+          <Text style={Styles.sectionTitle}>
+            Welcome! Register below:
+          </Text>
+          <View style={Styles.form}>
+            <View style={Styles.row}>
+              <Text style={Styles.rowLabel}>{I18n.t('email')}</Text>
+              <TextInput
+                ref='email'
+                style={textInputStyle}
+                value={email}
+                editable={editable}
+                keyboardType='default'
+                returnKeyType='next'
+                autoCapitalize='none'
+                autoCorrect={false}
+                onChangeText={this.handleChangeEmail}
+                underlineColorAndroid='transparent'
+                onSubmitEditing={() => this.refs.password.focus()}
+                placeholder={I18n.t('email')} />
+            </View>
 
-          <View style={Styles.row}>
-            <Text style={Styles.rowLabel}>{I18n.t('password')}</Text>
-            <TextInput
-              ref='password'
-              style={textInputStyle}
-              value={password}
-              editable={editable}
-              keyboardType='default'
-              returnKeyType='go'
-              autoCapitalize='none'
-              autoCorrect={false}
-              secureTextEntry
-              onChangeText={this.handleChangePassword}
-              underlineColorAndroid='transparent'
-              onSubmitEditing={this.handlePressRegister}
-              placeholder={I18n.t('password')} />
-          </View>
+            <View style={Styles.row}>
+              <Text style={Styles.rowLabel}>{I18n.t('password')}</Text>
+              <TextInput
+                ref='password'
+                style={textInputStyle}
+                value={password}
+                editable={editable}
+                keyboardType='default'
+                returnKeyType='go'
+                autoCapitalize='none'
+                autoCorrect={false}
+                secureTextEntry
+                onChangeText={this.handleChangePassword}
+                underlineColorAndroid='transparent'
+                onSubmitEditing={this.handlePressRegister}
+                placeholder={I18n.t('password')} />
+            </View>
 
-          <View style={Styles.row}>
-            <Text style={Styles.rowLabel}>{I18n.t('password')}</Text>
-            <TextInput
-              ref='confirmation'
-              style={textInputStyle}
-              value={confirmation}
-              editable={editable}
-              keyboardType='default'
-              returnKeyType='go'
-              autoCapitalize='none'
-              autoCorrect={false}
-              secureTextEntry
-              onChangeText={this.handleChangeconfirmation}
-              underlineColorAndroid='transparent'
-              onSubmitEditing={this.handlePressRegister}
-              placeholder={I18n.t('password')} />
-          </View>
+            <View style={Styles.row}>
+              <Text style={Styles.rowLabel}>{I18n.t('password_confirmation')}</Text>
+              <TextInput
+                ref='confirmation'
+                style={textInputStyle}
+                value={confirmation}
+                editable={editable}
+                keyboardType='default'
+                returnKeyType='go'
+                autoCapitalize='none'
+                autoCorrect={false}
+                secureTextEntry
+                onChangeText={this.handleChangeConfirmation}
+                underlineColorAndroid='transparent'
+                onSubmitEditing={this.handlePressRegister}
+                placeholder={I18n.t('password_confirmation')} />
+            </View>
 
-          <View style={[Styles.row]}>
-            <RoundedButton onPress={this.handlePressRegister} alternateStyle="darkButton" busy={this.props.fetching}>
-              { I18n.t('signUp') }
-            </RoundedButton>
-            <RoundedButton onPress={NavigationActions.pop} alternateStyle="darkButton">
-              { I18n.t('cancel') }
-            </RoundedButton>
+            <View>
+              <Text>Private Profile</Text>
+            </View>
+
+            <View style={Styles.row}>
+              <Text style={Styles.rowLabel}>{I18n.t('firstName')}</Text>
+              <TextInput
+                ref='firstName'
+                style={textInputStyle}
+                value={firstName}
+                editable={editable}
+                keyboardType='default'
+                returnKeyType='next'
+                autoCapitalize='none'
+                autoCorrect={false}
+                onChangeText={this.handleChangeFirstName}
+                underlineColorAndroid='transparent'
+                onSubmitEditing={this.handlePressUpdate}
+                placeholder={I18n.t('firstName')} />
+            </View>
+
+            <View style={Styles.row}>
+              <Text style={Styles.rowLabel}>{I18n.t('lastName')}</Text>
+              <TextInput
+                ref='lastName'
+                style={textInputStyle}
+                value={lastName}
+                editable={editable}
+                keyboardType='default'
+                returnKeyType='next'
+                autoCapitalize='none'
+                autoCorrect={false}
+                onChangeText={this.handleChangeLastName}
+                underlineColorAndroid='transparent'
+                onSubmitEditing={this.handlePressUpdate}
+                placeholder={I18n.t('lastName')} />
+            </View>
+
+            <View style={Styles.row}>
+              <Text style={Styles.rowLabel}>{I18n.t('position')}</Text>
+              <Picker
+                selectedValue={position}
+                onValueChange={this.handleChangePosition}>
+                <Picker.Item label="Montessori Guide" value="Montessori Guide" />
+                <Picker.Item label="Head of School" value="Head of School" />
+                <Picker.Item label="Principal" value="Principal" />
+                <Picker.Item label="Administrator" value="Administrator" />
+                <Picker.Item label="Assistant" value="Assistant" />
+                <Picker.Item label="Trainer" value="Trainer" />
+                <Picker.Item label="Consultant" value="Consultant" />
+                <Picker.Item label="Owner" value="Owner" />
+                <Picker.Item label="Material Maker" value="Material Maker" />
+                <Picker.Item label="Day Care Provider" value="Day Care Provider" />
+                <Picker.Item label="Parent" value="Parent" />
+                <Picker.Item label="Other" value="Other" />
+              </Picker>
+            </View>
+
+            <View style={Styles.row}>
+              <Text style={Styles.rowLabel}>{I18n.t('organization')}</Text>
+              <TextInput
+                ref='organization'
+                style={textInputStyle}
+                value={organization}
+                editable={editable}
+                keyboardType='default'
+                returnKeyType='next'
+                autoCapitalize='none'
+                autoCorrect={false}
+                onChangeText={this.handleChangeOrganization}
+                underlineColorAndroid='transparent'
+                onSubmitEditing={this.handlePressUpdate}
+                placeholder={I18n.t('organization')} />
+            </View>
+
+            <View style={Styles.row}>
+              <Text style={Styles.rowLabel}>{I18n.t('city')}</Text>
+              <TextInput
+                ref='city'
+                style={textInputStyle}
+                value={city}
+                editable={editable}
+                keyboardType='default'
+                returnKeyType='next'
+                autoCapitalize='none'
+                autoCorrect={false}
+                onChangeText={this.handleChangeCity}
+                underlineColorAndroid='transparent'
+                onSubmitEditing={this.handlePressUpdate}
+                placeholder={I18n.t('city')} />
+            </View>
+
+            <View style={Styles.row}>
+              <Text style={Styles.rowLabel}>{I18n.t('state')}</Text>
+              <TextInput
+                ref='state'
+                style={textInputStyle}
+                value={state}
+                editable={editable}
+                keyboardType='default'
+                returnKeyType='next'
+                autoCapitalize='none'
+                autoCorrect={false}
+                onChangeText={this.handleChangeState}
+                underlineColorAndroid='transparent'
+                onSubmitEditing={this.handlePressUpdate}
+                placeholder={I18n.t('state')} />
+            </View>
+
+            <View style={Styles.row}>
+              <Text style={Styles.rowLabel}>{I18n.t('country')}</Text>
+              <Picker
+                selectedValue={country}
+                onValueChange={this.handleChangeCountry}>
+                { countryOptions }
+              </Picker>
+            </View>
+
+            <View style={Styles.row}>
+              <Text>The Montessori Directory</Text>
+              <Text style={Styles.boxedText}>Would you like to connect with other Montessorians 
+              around the world? In an effort to bring our community 
+              closer together we are hosting a global Montessori 
+              Directory. Select the box below to add your profile to the 
+              directory!</Text>
+              <Text style={Styles.noteText}>NOTE: This is required in order to submit applictions for breakout sessions at conferences.</Text>
+              <CheckBox
+                label={I18n.t('optedInToPublicDirectory')}
+                onChange={this.handleChangeListInDirectory}
+                checked={optedInToPublicDirectory} />
+            </View>
           </View>
+        </ScrollView>
+        <View style={Styles.registerBar}>
+          <RoundedButton onPress={this.handlePressRegister} alternateStyle="darkButton" busy={this.props.fetching}>
+            { I18n.t('signUp') }
+          </RoundedButton>
         </View>
-
-      </ScrollView>
+      </View>
     )
   }
 
@@ -211,7 +394,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptRegister: (username, password, confirmation) => dispatch(RegisterActions.registerRequest(username, password, confirmation)),
+    attemptRegister: (user) => dispatch(RegisterActions.registerRequest(user)),
     clearError: () => dispatch(ErrorActions.clearError())
   }
 }
