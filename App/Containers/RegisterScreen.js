@@ -67,7 +67,7 @@ class RegisterScreen extends React.Component {
       position: 'Other',
       city: '',
       state: '',
-      country: '',
+      country: 'US',
       optedInToPublicDirectory: false,
       visibleHeight: Metrics.screenHeight,
       topLogo: { width: Metrics.screenWidth }
