@@ -32,7 +32,7 @@ class LoginScreen extends React.Component {
   props: LoginScreenProps
 
   state: {
-    username: string,
+    email: string,
     password: string,
     visibleHeight: number,
     topLogo: {
@@ -46,7 +46,7 @@ class LoginScreen extends React.Component {
   constructor (props: LoginScreenProps) {
     super(props)
     this.state = {
-      username: '',
+      email: '',
       password: '',
       visibleHeight: Metrics.screenHeight,
       topLogo: { width: Metrics.screenWidth }
@@ -93,8 +93,8 @@ class LoginScreen extends React.Component {
   handlePressLogin = () => {
     if (this.props.fetching == true) return;
     // attempt a login - a saga is listening to pick it up from here.
-    const { username, password } = this.state
-    this.props.attemptLogin(username, password)
+    const { email, password } = this.state
+    this.props.attemptLogin(email, password)
   }
 
   handlePressCancel = () => {
@@ -104,8 +104,8 @@ class LoginScreen extends React.Component {
     NavigationActions.pop()
   }
 
-  handleChangeUsername = (text) => {
-    this.setState({ username: text })
+  handleChangeEmail = (text) => {
+    this.setState({ email: text })
   }
 
   handleChangePassword = (text) => {
@@ -113,7 +113,7 @@ class LoginScreen extends React.Component {
   }
 
   render () {
-    const { username, password } = this.state
+    const { email, password } = this.state
     const { fetching } = this.props
     const editable = !fetching
     const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
@@ -125,20 +125,21 @@ class LoginScreen extends React.Component {
         </Text>
         <View style={Styles.form}>
           <View style={Styles.row}>
-            <Text style={Styles.rowLabel}>{I18n.t('username')}</Text>
+            <Text style={Styles.rowLabel}>{I18n.t('email')}</Text>
             <TextInput
-              ref='username'
+              ref='email'
               style={textInputStyle}
-              value={username}
+              value={email}
               editable={editable}
               keyboardType='default'
               returnKeyType='next'
               autoCapitalize='none'
               autoCorrect={false}
-              onChangeText={this.handleChangeUsername}
+              keyboardType='email-address'
+              onChangeText={this.handleChangeEmail}
               underlineColorAndroid='transparent'
               onSubmitEditing={() => this.refs.password.focus()}
-              placeholder={I18n.t('username')} />
+              placeholder={I18n.t('email')} />
           </View>
 
           <View style={Styles.row}>
@@ -184,7 +185,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptLogin: (username, password) => dispatch(LoginActions.loginRequest(username, password))
+    attemptLogin: (email, password) => dispatch(LoginActions.loginRequest(email, password))
   }
 }
 

@@ -8,6 +8,7 @@ import {
   TextInput,
   Picker,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   Image,
   Keyboard,
   LayoutAnimation
@@ -177,209 +178,211 @@ class RegisterScreen extends React.Component {
     const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
     const countries = lookup.countries({status: 'assigned'})
     const countryOptions = _.sortBy(countries, ['name']).map((country) => {
-      console.log(country)
       return <Picker.Item key={country.alpha2} label={country.name} value={country.alpha2} />
     })
     return (
-      <View style={Styles.mainContainer}>
-        <AlertMessage />
-        <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={[{height: this.state.visibleHeight}]} keyboardShouldPersistTaps="always">
-          <Text style={Styles.sectionTitle}>
-            Welcome! Register below:
-          </Text>
-          <View style={Styles.form}>
-            <View style={Styles.row}>
-              <Text style={Styles.rowLabel}>{I18n.t('email')}</Text>
-              <TextInput
-                ref='email'
-                style={textInputStyle}
-                value={email}
-                editable={editable}
-                keyboardType='default'
-                returnKeyType='next'
-                autoCapitalize='none'
-                autoCorrect={false}
-                onChangeText={this.handleChangeEmail}
-                underlineColorAndroid='transparent'
-                onSubmitEditing={() => this.refs.password.focus()}
-                placeholder={I18n.t('email')} />
-            </View>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={Styles.mainContainer}>
+          <AlertMessage />
+          <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={[{height: this.state.visibleHeight}]} keyboardShouldPersistTaps="always">
+            <Text style={Styles.sectionTitle}>
+              Welcome! Register below:
+            </Text>
+            <View style={Styles.form}>
+              <View style={Styles.row}>
+                <Text style={Styles.rowLabel}>{I18n.t('email')}</Text>
+                <TextInput
+                  ref='email'
+                  style={textInputStyle}
+                  value={email}
+                  editable={editable}
+                  keyboardType='default'
+                  returnKeyType='next'
+                  autoCapitalize='none'
+                  autoCorrect={false}
+                  keyboardType='email-address'
+                  onChangeText={this.handleChangeEmail}
+                  underlineColorAndroid='transparent'
+                  onSubmitEditing={() => this.refs.password.focus()}
+                  placeholder={I18n.t('email')} />
+              </View>
 
-            <View style={Styles.row}>
-              <Text style={Styles.rowLabel}>{I18n.t('password')}</Text>
-              <TextInput
-                ref='password'
-                style={textInputStyle}
-                value={password}
-                editable={editable}
-                keyboardType='default'
-                returnKeyType='go'
-                autoCapitalize='none'
-                autoCorrect={false}
-                secureTextEntry
-                onChangeText={this.handleChangePassword}
-                underlineColorAndroid='transparent'
-                onSubmitEditing={this.handlePressRegister}
-                placeholder={I18n.t('password')} />
-            </View>
+              <View style={Styles.row}>
+                <Text style={Styles.rowLabel}>{I18n.t('password')}</Text>
+                <TextInput
+                  ref='password'
+                  style={textInputStyle}
+                  value={password}
+                  editable={editable}
+                  keyboardType='default'
+                  returnKeyType='go'
+                  autoCapitalize='none'
+                  autoCorrect={false}
+                  secureTextEntry
+                  onChangeText={this.handleChangePassword}
+                  underlineColorAndroid='transparent'
+                  onSubmitEditing={this.handlePressRegister}
+                  placeholder={I18n.t('password')} />
+              </View>
 
-            <View style={Styles.row}>
-              <Text style={Styles.rowLabel}>{I18n.t('password_confirmation')}</Text>
-              <TextInput
-                ref='confirmation'
-                style={textInputStyle}
-                value={confirmation}
-                editable={editable}
-                keyboardType='default'
-                returnKeyType='go'
-                autoCapitalize='none'
-                autoCorrect={false}
-                secureTextEntry
-                onChangeText={this.handleChangeConfirmation}
-                underlineColorAndroid='transparent'
-                onSubmitEditing={this.handlePressRegister}
-                placeholder={I18n.t('password_confirmation')} />
-            </View>
+              <View style={Styles.row}>
+                <Text style={Styles.rowLabel}>{I18n.t('password_confirmation')}</Text>
+                <TextInput
+                  ref='confirmation'
+                  style={textInputStyle}
+                  value={confirmation}
+                  editable={editable}
+                  keyboardType='default'
+                  returnKeyType='go'
+                  autoCapitalize='none'
+                  autoCorrect={false}
+                  secureTextEntry
+                  onChangeText={this.handleChangeConfirmation}
+                  underlineColorAndroid='transparent'
+                  onSubmitEditing={this.handlePressRegister}
+                  placeholder={I18n.t('password_confirmation')} />
+              </View>
 
-            <View>
-              <Text>Private Profile</Text>
-            </View>
+              <View>
+                <Text>Private Profile</Text>
+              </View>
 
-            <View style={Styles.row}>
-              <Text style={Styles.rowLabel}>{I18n.t('firstName')}</Text>
-              <TextInput
-                ref='firstName'
-                style={textInputStyle}
-                value={firstName}
-                editable={editable}
-                keyboardType='default'
-                returnKeyType='next'
-                autoCapitalize='none'
-                autoCorrect={false}
-                onChangeText={this.handleChangeFirstName}
-                underlineColorAndroid='transparent'
-                onSubmitEditing={this.handlePressUpdate}
-                placeholder={I18n.t('firstName')} />
-            </View>
+              <View style={Styles.row}>
+                <Text style={Styles.rowLabel}>{I18n.t('firstName')}</Text>
+                <TextInput
+                  ref='firstName'
+                  style={textInputStyle}
+                  value={firstName}
+                  editable={editable}
+                  keyboardType='default'
+                  returnKeyType='next'
+                  autoCapitalize='sentences'
+                  autoCorrect={false}
+                  onChangeText={this.handleChangeFirstName}
+                  underlineColorAndroid='transparent'
+                  onSubmitEditing={this.handlePressUpdate}
+                  placeholder={I18n.t('firstName')} />
+              </View>
 
-            <View style={Styles.row}>
-              <Text style={Styles.rowLabel}>{I18n.t('lastName')}</Text>
-              <TextInput
-                ref='lastName'
-                style={textInputStyle}
-                value={lastName}
-                editable={editable}
-                keyboardType='default'
-                returnKeyType='next'
-                autoCapitalize='none'
-                autoCorrect={false}
-                onChangeText={this.handleChangeLastName}
-                underlineColorAndroid='transparent'
-                onSubmitEditing={this.handlePressUpdate}
-                placeholder={I18n.t('lastName')} />
-            </View>
+              <View style={Styles.row}>
+                <Text style={Styles.rowLabel}>{I18n.t('lastName')}</Text>
+                <TextInput
+                  ref='lastName'
+                  style={textInputStyle}
+                  value={lastName}
+                  editable={editable}
+                  keyboardType='default'
+                  returnKeyType='next'
+                  autoCapitalize='sentences'
+                  autoCorrect={false}
+                  onChangeText={this.handleChangeLastName}
+                  underlineColorAndroid='transparent'
+                  onSubmitEditing={this.handlePressUpdate}
+                  placeholder={I18n.t('lastName')} />
+              </View>
 
-            <View style={Styles.row}>
-              <Text style={Styles.rowLabel}>{I18n.t('position')}</Text>
-              <Picker
-                selectedValue={position}
-                onValueChange={this.handleChangePosition}>
-                <Picker.Item label="Montessori Guide" value="Montessori Guide" />
-                <Picker.Item label="Head of School" value="Head of School" />
-                <Picker.Item label="Principal" value="Principal" />
-                <Picker.Item label="Administrator" value="Administrator" />
-                <Picker.Item label="Assistant" value="Assistant" />
-                <Picker.Item label="Trainer" value="Trainer" />
-                <Picker.Item label="Consultant" value="Consultant" />
-                <Picker.Item label="Owner" value="Owner" />
-                <Picker.Item label="Material Maker" value="Material Maker" />
-                <Picker.Item label="Day Care Provider" value="Day Care Provider" />
-                <Picker.Item label="Parent" value="Parent" />
-                <Picker.Item label="Other" value="Other" />
-              </Picker>
-            </View>
+              <View style={Styles.row}>
+                <Text style={Styles.rowLabel}>{I18n.t('position')}</Text>
+                <Picker
+                  selectedValue={position}
+                  onValueChange={this.handleChangePosition}>
+                  <Picker.Item label="Montessori Guide" value="Montessori Guide" />
+                  <Picker.Item label="Head of School" value="Head of School" />
+                  <Picker.Item label="Principal" value="Principal" />
+                  <Picker.Item label="Administrator" value="Administrator" />
+                  <Picker.Item label="Assistant" value="Assistant" />
+                  <Picker.Item label="Trainer" value="Trainer" />
+                  <Picker.Item label="Consultant" value="Consultant" />
+                  <Picker.Item label="Owner" value="Owner" />
+                  <Picker.Item label="Material Maker" value="Material Maker" />
+                  <Picker.Item label="Day Care Provider" value="Day Care Provider" />
+                  <Picker.Item label="Parent" value="Parent" />
+                  <Picker.Item label="Other" value="Other" />
+                </Picker>
+              </View>
 
-            <View style={Styles.row}>
-              <Text style={Styles.rowLabel}>{I18n.t('organization')}</Text>
-              <TextInput
-                ref='organization'
-                style={textInputStyle}
-                value={organization}
-                editable={editable}
-                keyboardType='default'
-                returnKeyType='next'
-                autoCapitalize='none'
-                autoCorrect={false}
-                onChangeText={this.handleChangeOrganization}
-                underlineColorAndroid='transparent'
-                onSubmitEditing={this.handlePressUpdate}
-                placeholder={I18n.t('organization')} />
-            </View>
+              <View style={Styles.row}>
+                <Text style={Styles.rowLabel}>{I18n.t('organization')}</Text>
+                <TextInput
+                  ref='organization'
+                  style={textInputStyle}
+                  value={organization}
+                  editable={editable}
+                  keyboardType='default'
+                  returnKeyType='next'
+                  autoCapitalize='sentences'
+                  autoCorrect={false}
+                  onChangeText={this.handleChangeOrganization}
+                  underlineColorAndroid='transparent'
+                  onSubmitEditing={this.handlePressUpdate}
+                  placeholder={I18n.t('organization')} />
+              </View>
 
-            <View style={Styles.row}>
-              <Text style={Styles.rowLabel}>{I18n.t('city')}</Text>
-              <TextInput
-                ref='city'
-                style={textInputStyle}
-                value={city}
-                editable={editable}
-                keyboardType='default'
-                returnKeyType='next'
-                autoCapitalize='none'
-                autoCorrect={false}
-                onChangeText={this.handleChangeCity}
-                underlineColorAndroid='transparent'
-                onSubmitEditing={this.handlePressUpdate}
-                placeholder={I18n.t('city')} />
-            </View>
+              <View style={Styles.row}>
+                <Text style={Styles.rowLabel}>{I18n.t('city')}</Text>
+                <TextInput
+                  ref='city'
+                  style={textInputStyle}
+                  value={city}
+                  editable={editable}
+                  keyboardType='default'
+                  returnKeyType='next'
+                  autoCapitalize='sentences'
+                  autoCorrect={false}
+                  onChangeText={this.handleChangeCity}
+                  underlineColorAndroid='transparent'
+                  onSubmitEditing={this.handlePressUpdate}
+                  placeholder={I18n.t('city')} />
+              </View>
 
-            <View style={Styles.row}>
-              <Text style={Styles.rowLabel}>{I18n.t('state')}</Text>
-              <TextInput
-                ref='state'
-                style={textInputStyle}
-                value={state}
-                editable={editable}
-                keyboardType='default'
-                returnKeyType='next'
-                autoCapitalize='none'
-                autoCorrect={false}
-                onChangeText={this.handleChangeState}
-                underlineColorAndroid='transparent'
-                onSubmitEditing={this.handlePressUpdate}
-                placeholder={I18n.t('state')} />
-            </View>
+              <View style={Styles.row}>
+                <Text style={Styles.rowLabel}>{I18n.t('state')}</Text>
+                <TextInput
+                  ref='state'
+                  style={textInputStyle}
+                  value={state}
+                  editable={editable}
+                  keyboardType='default'
+                  returnKeyType='next'
+                  autoCapitalize='sentences'
+                  autoCorrect={false}
+                  onChangeText={this.handleChangeState}
+                  underlineColorAndroid='transparent'
+                  onSubmitEditing={this.handlePressUpdate}
+                  placeholder={I18n.t('state')} />
+              </View>
 
-            <View style={Styles.row}>
-              <Text style={Styles.rowLabel}>{I18n.t('country')}</Text>
-              <Picker
-                selectedValue={country}
-                onValueChange={this.handleChangeCountry}>
-                { countryOptions }
-              </Picker>
-            </View>
+              <View style={Styles.row}>
+                <Text style={Styles.rowLabel}>{I18n.t('country')}</Text>
+                <Picker
+                  selectedValue={country}
+                  onValueChange={this.handleChangeCountry}>
+                  { countryOptions }
+                </Picker>
+              </View>
 
-            <View style={Styles.row}>
-              <Text>The Montessori Directory</Text>
-              <Text style={Styles.boxedText}>Would you like to connect with other Montessorians 
-              around the world? In an effort to bring our community 
-              closer together we are hosting a global Montessori 
-              Directory. Select the box below to add your profile to the 
-              directory!</Text>
-              <Text style={Styles.noteText}>NOTE: This is required in order to submit applictions for breakout sessions at conferences.</Text>
-              <CheckBox
-                label={I18n.t('optedInToPublicDirectory')}
-                onChange={this.handleChangeListInDirectory}
-                checked={optedInToPublicDirectory} />
+              <View style={Styles.row}>
+                <Text>The Montessori Directory</Text>
+                <Text style={Styles.boxedText}>Would you like to connect with other Montessorians 
+                around the world? In an effort to bring our community 
+                closer together we are hosting a global Montessori 
+                Directory. Select the box below to add your profile to the 
+                directory!</Text>
+                <Text style={Styles.noteText}>NOTE: This is required in order to submit applictions for breakout sessions at conferences.</Text>
+                <CheckBox
+                  label={I18n.t('optedInToPublicDirectory')}
+                  onChange={this.handleChangeListInDirectory}
+                  checked={optedInToPublicDirectory} />
+              </View>
             </View>
+          </ScrollView>
+          <View style={Styles.registerBar}>
+            <RoundedButton onPress={this.handlePressRegister} alternateStyle="darkButton" busy={this.props.fetching}>
+              { I18n.t('signUp') }
+            </RoundedButton>
           </View>
-        </ScrollView>
-        <View style={Styles.registerBar}>
-          <RoundedButton onPress={this.handlePressRegister} alternateStyle="darkButton" busy={this.props.fetching}>
-            { I18n.t('signUp') }
-          </RoundedButton>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     )
   }
 
